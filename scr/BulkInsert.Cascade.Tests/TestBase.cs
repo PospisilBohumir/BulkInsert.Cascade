@@ -5,16 +5,16 @@ namespace BulkInsert.Cascade.Tests
 {
     public abstract class TestBase : IDisposable
     {
-        protected readonly BulkInsertTestContext _context;
+        protected readonly BulkInsertTestContext Context;
 
         protected TestBase()
         {
-            _context = new BulkInsertTestContext();
+            Context = new BulkInsertTestContext();
         }
 
         public void Dispose()
         {
-            _context.Dispose();
+            Context.Dispose();
         }
     }
 }

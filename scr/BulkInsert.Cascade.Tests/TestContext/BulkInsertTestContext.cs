@@ -18,6 +18,8 @@ namespace BulkInsert.Cascade.Tests.TestContext
 
         public IDbSet<ReverseParentEntity> ReverseParentEntities { get; set; }
 
-        public IDbSet<AllColumnsEntity> AllColumnsEntities { get; set; }
+        public IDbSet<AllColumnTypesEntity> AllColumnTypesEntities { get; set; }
+
+        public IDbSet<ComplexTypeTestEntity> ComplexTypeTestEntities { get; set; }
     }
 }

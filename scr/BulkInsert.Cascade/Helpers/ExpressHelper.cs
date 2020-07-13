@@ -8,7 +8,7 @@ namespace BulkInsert.Cascade.Helpers
     /// <summary>
     ///     Helper used for parsing expressions
     /// </summary>
-    public static class ExpressHelper
+    internal static class ExpressHelper
     {
         /// <summary>
         ///     Creates property value getter from the property name
@@ -16,7 +16,7 @@ namespace BulkInsert.Cascade.Helpers
         /// <typeparam name="TObject">Type containing the property</typeparam>
         /// <param name="path">Path to the property</param>
         /// <returns>Property value getter expression</returns>
-        public static Expression<Func<TObject, object>> GetPropGetter<TObject>(string path)
+        internal static Expression<Func<TObject, object>> GetPropGetter<TObject>(string path)
         {
             var paramExpression = Expression.Parameter(typeof(TObject), "value");
             var expressionTree = path.Split('.').Aggregate<string, Expression>(paramExpression, Expression.Property);
@@ -25,7 +25,7 @@ namespace BulkInsert.Cascade.Helpers
             return Expression.Lambda<Func<TObject, object>>(body, paramExpression);
         }
 
-        public static Expression<Action<TObject, TProperty>> GetPropSetter<TObject, TProperty>(string propertyName)
+        internal static Expression<Action<TObject, TProperty>> GetPropSetter<TObject, TProperty>(string propertyName)
         {
             var paramObject = Expression.Parameter(typeof(TObject), "o");
             var paramValue = Expression.Parameter(typeof(TProperty), "value");
@@ -33,8 +33,7 @@ namespace BulkInsert.Cascade.Helpers
             var assign = Expression.Assign(property, paramValue);
             return Expression.Lambda<Action<TObject, TProperty>>(assign, paramObject, paramValue);
         }
-
-
+        
         public static Expression<Action<TSource, TDestination>> CreateCopy<TSource, TDestination>(string sourceProperty,
             string destinationProperty)
         {
