@@ -32,10 +32,14 @@ namespace BulkInsert.Cascade.Tests
                 .Include(o => o.PkIdentityLong)
                 .Include(o => o.PkIdentityShort)
                 .SingleAsync();
-            contextParentEntities.PkIdentityGuid.Should().BeEquivalentTo(original.PkIdentityGuid, o => o.Excluding(o => o.ParentEntity));
-            contextParentEntities.PkIdentityInt.Should().BeEquivalentTo(original.PkIdentityInt, o => o.Excluding(o => o.ParentEntity));
-            contextParentEntities.PkIdentityLong.Should().BeEquivalentTo(original.PkIdentityLong, o => o.Excluding(o => o.ParentEntity));
-            contextParentEntities.PkIdentityShort.Should().BeEquivalentTo(original.PkIdentityShort, o => o.Excluding(o => o.ParentEntity));
+            contextParentEntities.PkIdentityGuid.Should()
+                .BeEquivalentTo(original.PkIdentityGuid, o => o.Excluding(o => o.ParentEntity));
+            contextParentEntities.PkIdentityInt.Should()
+                .BeEquivalentTo(original.PkIdentityInt, o => o.Excluding(o => o.ParentEntity));
+            contextParentEntities.PkIdentityLong.Should()
+                .BeEquivalentTo(original.PkIdentityLong, o => o.Excluding(o => o.ParentEntity));
+            contextParentEntities.PkIdentityShort.Should()
+                .BeEquivalentTo(original.PkIdentityShort, o => o.Excluding(o => o.ParentEntity));
         }
 
         [Fact]
@@ -44,12 +48,12 @@ namespace BulkInsert.Cascade.Tests
             using var transaction = _context.Database.BeginTransaction();
             var original = new ReverseParentEntity
             {
-                PkIdentityGuid = new ReversePkIdentityGuid() ,
-                PkIdentityInt = new ReversePkIdentityInt() ,
-                PkIdentityLong = new ReversePkIdentityLong() ,
+                PkIdentityGuid = new ReversePkIdentityGuid(),
+                PkIdentityInt = new ReversePkIdentityInt(),
+                PkIdentityLong = new ReversePkIdentityLong(),
                 PkIdentityShort = new ReversePkIdentityShort()
             };
-            await _context.BulkInsertCascade(transaction, new[] { original },
+            await _context.BulkInsertCascade(transaction, new[] {original},
                 new CascadeReverse<ReverseParentEntity, ReversePkIdentityGuid>(o => o.PkIdentityGuid),
                 new CascadeReverse<ReverseParentEntity, ReversePkIdentityInt>(o => o.PkIdentityInt),
                 new CascadeReverse<ReverseParentEntity, ReversePkIdentityShort>(o => o.PkIdentityShort),
@@ -67,6 +71,5 @@ namespace BulkInsert.Cascade.Tests
             contextParentEntities.PkIdentityLong.Should().BeEquivalentTo(original.PkIdentityLong);
             contextParentEntities.PkIdentityShort.Should().BeEquivalentTo(original.PkIdentityShort);
         }
-
     }
 }

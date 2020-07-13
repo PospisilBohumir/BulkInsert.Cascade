@@ -22,22 +22,24 @@ namespace BulkInsert.Cascade
             _cascades = cascades;
         }
 
-        public async  Task InnerInsert(IEnumerable<TSource> source, DbContext context, DbContextTransaction transaction)
+        public async Task InnerInsert(IEnumerable<TSource> source, DbContext context, DbContextTransaction transaction)
         {
             if (source == null)
             {
                 return;
             }
+
             var extractor = _extractor.Compile();
-           var s = source.Where(o => extractor(o) != null).ToArray();
+            var s = source.Where(o => extractor(o) != null).ToArray();
             if (!s.Any())
             {
                 return;
             }
+
             var copyPk = GetCopyPk(context);
-            TDestination[] destinations = s.Select(extractor).Distinct().ToArray();
-             await  context.BulkInsertCascade(transaction, destinations, _cascades);
-            foreach (TSource destination in s)
+            var destinations = s.Select(extractor).Distinct().ToArray();
+            await context.BulkInsertCascade(transaction, destinations, _cascades);
+            foreach (var destination in s)
             {
                 copyPk(destination, destination);
             }
@@ -47,7 +49,8 @@ namespace BulkInsert.Cascade
         {
             var path = ExpressHelper.GetPath(_extractor);
             var property = context.Db<TSource>().Properties.Single(o => o.NavigationProperty?.PropertyName == path);
-            var expression = ExpressHelper.CreateCopy<TSource, TSource>(context.GetPkName<TSource>(), property.PropertyName);
+            var expression = ExpressHelper.CreateCopy<TSource, TSource>(
+                $"{path}.{context.GetPkName<TSource>()}", property.PropertyName);
             return expression.Compile();
         }
 

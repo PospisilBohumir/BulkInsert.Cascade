@@ -8,7 +8,7 @@ namespace BulkInsert.Cascade.Helpers
     /// <summary>
     ///     Helper used for parsing expressions
     /// </summary>
-    internal static class ExpressHelper
+    public static class ExpressHelper
     {
         /// <summary>
         ///     Creates property value getter from the property name
@@ -16,7 +16,7 @@ namespace BulkInsert.Cascade.Helpers
         /// <typeparam name="TObject">Type containing the property</typeparam>
         /// <param name="path">Path to the property</param>
         /// <returns>Property value getter expression</returns>
-        internal static Expression<Func<TObject, object>> GetPropGetter<TObject>(string path)
+        public static Expression<Func<TObject, object>> GetPropGetter<TObject>(string path)
         {
             var paramExpression = Expression.Parameter(typeof(TObject), "value");
             var expressionTree = path.Split('.').Aggregate<string, Expression>(paramExpression, Expression.Property);
@@ -25,7 +25,7 @@ namespace BulkInsert.Cascade.Helpers
             return Expression.Lambda<Func<TObject, object>>(body, paramExpression);
         }
 
-        internal static Expression<Action<TObject, TProperty>> GetPropSetter<TObject, TProperty>(string propertyName)
+        public static Expression<Action<TObject, TProperty>> GetPropSetter<TObject, TProperty>(string propertyName)
         {
             var paramObject = Expression.Parameter(typeof(TObject), "o");
             var paramValue = Expression.Parameter(typeof(TProperty), "value");
@@ -35,16 +35,25 @@ namespace BulkInsert.Cascade.Helpers
         }
 
 
-        internal static Expression<Action<TSource, TDestination>> CreateCopy<TSource, TDestination>(string sourceProperty,
+        public static Expression<Action<TSource, TDestination>> CreateCopy<TSource, TDestination>(string sourceProperty,
             string destinationProperty)
         {
             var source = Expression.Parameter(typeof(TSource), "source");
             var destinationType = typeof(TDestination);
             var destination = Expression.Parameter(destinationType, "destination");
-            var destAccess = Expression.MakeMemberAccess(destination, destinationType.GetProperty(destinationProperty)!);
-            var body = Expression.Assign(destAccess, Expression.Property(source, sourceProperty));
+            var destinationSplit = destinationProperty.Split('.');
+            var destinationPropertyInfo = destinationType.GetProperty(destinationSplit.Last());
+            var destAccess = Expression.MakeMemberAccess(
+                CreateFromPath(destination, destinationSplit.Take(destinationSplit.Length-1)), 
+                destinationPropertyInfo!);
+            var right = CreateFromPath(source, sourceProperty.Split('.'));
+            var body = Expression.Assign(destAccess, Expression.Convert(right, destinationPropertyInfo.PropertyType));
             return Expression.Lambda<Action<TSource, TDestination>>(body, source, destination);
         }
+
+        private static Expression CreateFromPath(Expression @this, IEnumerable<string> split) 
+            => split.Aggregate(@this, Expression.Property);
+
 
         public static Expression<Func<TObject, bool>> IsPropertyEmpty<TObject>(string propertyName, Type propertyType)
         {
@@ -60,7 +69,7 @@ namespace BulkInsert.Cascade.Helpers
         /// <typeparam name="TProperty">Property type</typeparam>
         /// <param name="exp">Property expression</param>
         /// <returns>string representation of path to property</returns>
-        internal static string GetPath<T, TProperty>(Expression<Func<T, TProperty>> exp)
+        public static string GetPath<T, TProperty>(Expression<Func<T, TProperty>> exp)
         {
             return string.Join(".", GetItemsInPath(exp).Reverse());
         }
@@ -87,13 +96,13 @@ namespace BulkInsert.Cascade.Helpers
 
         private static MemberExpression FindMemberExpression(this Expression exp)
         {
-            if (exp is MemberExpression)
+            if (exp is MemberExpression memberExpression)
             {
-                return (MemberExpression)exp;
+                return memberExpression;
             }
-            if (IsConversion(exp) && exp is UnaryExpression)
+            if (IsConversion(exp) && exp is UnaryExpression expression)
             {
-                return ((UnaryExpression)exp).Operand as MemberExpression;
+                return expression.Operand as MemberExpression;
             }
             return null;
         }

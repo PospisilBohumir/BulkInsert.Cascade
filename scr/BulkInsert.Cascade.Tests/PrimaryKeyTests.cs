@@ -1,6 +1,9 @@
+using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Tests.TestContext;
+using FluentAssertions;
 using Xunit;
 
 namespace BulkInsert.Cascade.Tests
@@ -10,49 +13,37 @@ namespace BulkInsert.Cascade.Tests
         [Fact]
         public async Task SimpleBulkInsertPkLongTest()
         {
-            using var transaction = _context.Database.BeginTransaction();
-            await _context.BulkInsertWithIdGeneration(transaction, new[]
-            {
-                new PkIdentityLong()
-            });
-            transaction.Commit();
-            Assert.Equal(1,await _context.PkIdentityLongs.CountAsync());
+            await PkCheck<PkIdentityLong>();
         }
 
         [Fact]
         public async Task SimpleBulkInsertPkIntTest()
         {
-            using var transaction = _context.Database.BeginTransaction();
-            await _context.BulkInsertWithIdGeneration(transaction, new[]
-            {
-                new PkIdentityInt()
-            });
-            transaction.Commit();
-            Assert.Equal(1, await _context.PkIdentityInts.CountAsync());
+            await PkCheck<PkIdentityInt>();
         }
 
         [Fact]
         public async Task SimpleBulkInsertPkShortTest()
         {
-            using var transaction = _context.Database.BeginTransaction();
-            await _context.BulkInsertWithIdGeneration(transaction, new[]
-            {
-                new PkIdentityShort()
-            });
-            transaction.Commit();
-            Assert.Equal(1, await _context.PkIdentityShorts.CountAsync());
+            await PkCheck<PkIdentityShort>();
         }
 
         [Fact]
         public async Task SimpleBulkInsertPkGuidTest()
         {
+            await PkCheck<PkIdentityGuid>();
+        }
+
+
+        private async Task PkCheck<T>() where T : class,IName, new()
+        {
             using var transaction = _context.Database.BeginTransaction();
-            await _context.BulkInsertWithIdGeneration(transaction, new[]
-            {
-                new PkIdentityGuid(), 
-            });
+            var entity = new T {Name = Guid.NewGuid().ToString()};
+            await _context.BulkInsertWithIdGeneration(transaction, new[] {entity});
             transaction.Commit();
-            Assert.Equal(1, await _context.PkIdentityGuids.CountAsync());
+            var anyAsync = await _context.Set<T>().Where(o => o.Name == entity.Name)
+                .SingleAsync();    
+            anyAsync.Should().BeEquivalentTo(entity);
         }
     }
 }
