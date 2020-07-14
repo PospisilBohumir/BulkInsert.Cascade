@@ -5,9 +5,9 @@ namespace BulkInsert.Cascade.Tests.TestContext
     public class ParentEntity
     {
         public long Id { get; set; }
-        public virtual ICollection<PkIdentityLong> PkIdentityLong { get; set; }
-        public virtual ICollection<PkIdentityInt> PkIdentityInt { get; set; }
-        public virtual ICollection<PkIdentityShort> PkIdentityShort { get; set; }
-        public virtual ICollection<PkIdentityGuid> PkIdentityGuid { get; set; }
+        public virtual ICollection<PkLongEntity> PkIdentityLong { get; set; }
+        public virtual ICollection<PkIntEntity> PkIdentityInt { get; set; }
+        public virtual ICollection<PkShortEntity> PkIdentityShort { get; set; }
+        public virtual ICollection<PkGuidEntity> PkIdentityGuid { get; set; }
     }
 }

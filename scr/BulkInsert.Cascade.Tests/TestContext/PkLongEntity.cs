@@ -1,8 +1,8 @@
 namespace BulkInsert.Cascade.Tests.TestContext
 {
-    public class PkIdentityShort : IName
+    public class PkLongEntity : IName
     {
-        public short Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
 
         public virtual ParentEntity ParentEntity { get; set; }

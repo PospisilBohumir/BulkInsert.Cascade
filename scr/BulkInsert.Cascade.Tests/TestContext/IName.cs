@@ -4,4 +4,10 @@ namespace BulkInsert.Cascade.Tests.TestContext
     {
         public string Name { get; set; }
     }
+
+    public interface IId
+    {
+        public long Id { get; set; }
+    }
+
 }

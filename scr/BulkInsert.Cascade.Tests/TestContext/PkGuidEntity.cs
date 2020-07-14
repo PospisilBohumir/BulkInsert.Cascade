@@ -1,8 +1,10 @@
+using System;
+
 namespace BulkInsert.Cascade.Tests.TestContext
 {
-    public class PkIdentityInt : IName
+    public class PkGuidEntity : IName
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
 
         public virtual ParentEntity ParentEntity { get; set; }

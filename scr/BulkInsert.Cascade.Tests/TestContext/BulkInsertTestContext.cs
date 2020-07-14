@@ -10,16 +10,14 @@ namespace BulkInsert.Cascade.Tests.TestContext
             Database.SetInitializer(new DropCreateDatabaseAlways<BulkInsertTestContext>());
         }
 
-        public IDbSet<PkIdentityLong> PkIdentityLongs { get; set; }
-        public IDbSet<PkIdentityInt> PkIdentityInts { get; set; }
-        public IDbSet<PkIdentityShort> PkIdentityShorts { get; set; }
-        public IDbSet<PkIdentityGuid> PkIdentityGuids { get; set; }
+        public IDbSet<PkLongEntity> PkLongEntities { get; set; }
+        public IDbSet<PkIntEntity> PkIntEntities { get; set; }
+        public IDbSet<PkShortEntity> PkShortEntities { get; set; }
+        public IDbSet<PkGuidEntity> PkGuidEntities { get; set; }
         public IDbSet<ParentEntity> ParentEntities { get; set; }
-
         public IDbSet<ReverseParentEntity> ReverseParentEntities { get; set; }
-
         public IDbSet<AllColumnTypesEntity> AllColumnTypesEntities { get; set; }
-
         public IDbSet<ComplexTypeTestEntity> ComplexTypeTestEntities { get; set; }
+        public IDbSet<ReverseLevel1Entity> ReverseLevel1Entities { get; set; }
     }
 }

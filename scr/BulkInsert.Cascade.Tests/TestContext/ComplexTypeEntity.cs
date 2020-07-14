@@ -10,7 +10,7 @@ namespace BulkInsert.Cascade.Tests.TestContext
         public long Field2 { get; set; }
     }
 
-    public class ComplexTypeTestEntity
+    public class ComplexTypeTestEntity : IId
     {
         public long Id { get; set; }
 

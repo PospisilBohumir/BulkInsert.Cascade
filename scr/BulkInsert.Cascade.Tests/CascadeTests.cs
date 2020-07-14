@@ -14,16 +14,16 @@ namespace BulkInsert.Cascade.Tests
             using var transaction = Context.Database.BeginTransaction();
             var original = new ParentEntity
             {
-                PkIdentityGuid = new[] {new PkIdentityGuid()},
-                PkIdentityInt = new[] {new PkIdentityInt()},
-                PkIdentityLong = new[] {new PkIdentityLong()},
-                PkIdentityShort = new[] {new PkIdentityShort()}
+                PkIdentityGuid = new[] {new PkGuidEntity()},
+                PkIdentityInt = new[] {new PkIntEntity()},
+                PkIdentityLong = new[] {new PkLongEntity()},
+                PkIdentityShort = new[] {new PkShortEntity()}
             };
             await Context.BulkInsertCascade(transaction, new[] {original},
-                new Cascade<ParentEntity, PkIdentityGuid>(o => o.PkIdentityGuid),
-                new Cascade<ParentEntity, PkIdentityInt>(o => o.PkIdentityInt),
-                new Cascade<ParentEntity, PkIdentityShort>(o => o.PkIdentityShort),
-                new Cascade<ParentEntity, PkIdentityLong>(o => o.PkIdentityLong)
+                new Cascade<ParentEntity, PkGuidEntity>(o => o.PkIdentityGuid),
+                new Cascade<ParentEntity, PkIntEntity>(o => o.PkIdentityInt),
+                new Cascade<ParentEntity, PkShortEntity>(o => o.PkIdentityShort),
+                new Cascade<ParentEntity, PkLongEntity>(o => o.PkIdentityLong)
             );
             transaction.Commit();
             var contextParentEntities = await Context.ParentEntities

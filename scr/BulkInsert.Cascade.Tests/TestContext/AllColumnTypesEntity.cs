@@ -2,12 +2,12 @@ using System;
 
 namespace BulkInsert.Cascade.Tests.TestContext
 {
-    public class AllColumnTypesEntity
+    public class AllColumnTypesEntity : IId
     {
         public long Id { get; set; }
         
         public string StringValue { get; set; }
-        public DateTime DateTimeValue { get; set; }
+        public DateTime DateTimeValue { get; set; } = new DateTime(1800,1,1);
         public DateTime? DateTimeNullableValue { get; set; }
         public bool BoolValue { get; set; }
         public bool? BoolNullableValue { get; set; }
