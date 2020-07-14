@@ -1,15 +1,4 @@
-# BulkInsert.Cascade
-Simple library for cascade bulkinsert using Entity Framework supporting MS SQL
-
-## Features
-- Bulkinsert EF entities
-- retrieve Id from DB for identity PK using Hi/Lo algorithm
-- propagation id to foreign key columns
-- cascade bulkinsert with unlimited depth
-
-### Example
-```c#
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -76,4 +65,3 @@ namespace BulkInsert.Cascade.Samples
         public int StudentId { get; set; }
     }
 }
-```

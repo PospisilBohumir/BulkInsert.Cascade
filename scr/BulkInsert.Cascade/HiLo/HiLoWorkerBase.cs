@@ -38,9 +38,11 @@ end;
             var entitiesLength = entities.Length;
             var minId = Minus(await context.Database.SqlQuery<TValue>(RetrieveIdsSql(tableName, entitiesLength)).FirstAsync(), entitiesLength);
             var pkSetter = context.GetPkSetter<TEntity, TValue>();
+            var id = minId;
             foreach (var entity in entities)
             {
-                pkSetter(entity, AddOne(minId));
+                pkSetter(entity, id);
+                id = AddOne(id);
             }
         }
     }

@@ -1,0 +1,11 @@
+TODO:
+1) samples
+2) intro
+3) EF6/EF core
+4) .NET framework/.NET standart
+5) Better exceptions handling
+6) Fork of EntityFramework.Metadata
+7) Create Nugget
+8) Pipeline - automatic build
+9) Nullable Types
+10) Automatic 
