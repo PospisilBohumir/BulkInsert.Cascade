@@ -126,5 +126,13 @@ namespace BulkInsert.Cascade
                 await cascade.InnerInsert(forSave, context, transaction);
             }
         }
+
+        public static async Task BulkInsertCascade<T>(this DbContext context, IList<T> forSave,
+            params ICascade<T>[] cascades) where T : class
+        {
+            using var transaction = context.Database.BeginTransaction();
+            await BulkInsertCascade(context, transaction, forSave, cascades);
+            transaction.Commit();
+        }
     }
 }
