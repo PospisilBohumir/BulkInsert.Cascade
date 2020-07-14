@@ -16,5 +16,6 @@ namespace BulkInsert.Cascade.Tests
                 SomeField = Guid.NewGuid().ToString(),
             });
         }
+
     }
 }

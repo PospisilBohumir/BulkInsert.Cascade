@@ -19,5 +19,6 @@ namespace BulkInsert.Cascade.Tests.TestContext
         public IDbSet<AllColumnTypesEntity> AllColumnTypesEntities { get; set; }
         public IDbSet<ComplexTypeTestEntity> ComplexTypeTestEntities { get; set; }
         public IDbSet<ReverseLevel1Entity> ReverseLevel1Entities { get; set; }
+        public IDbSet<ForwardLevel1Entity> ForwardLevel3Entities { get; set; }
     }
 }
