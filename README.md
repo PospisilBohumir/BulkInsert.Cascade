@@ -79,7 +79,7 @@ namespace BulkInsert.Cascade.Samples
 ```
 ## Output
 ```console
-Before Bulk Insert: Students - 100, Grades:30000
+Before Bulk Insert: Students - 300, Grades:30000
 After Bulk Insert: Students - 400, Grades:40000
 It took 2046 ms
 ```
