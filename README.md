@@ -7,7 +7,7 @@ Simple library for cascade bulkinsert using Entity Framework supporting MS SQL
 - propagation id to foreign key columns
 - cascade bulkinsert with unlimited depth
 
-### Example
+## Example
 ```c#
 using System;
 using System.Collections.Generic;
@@ -76,4 +76,10 @@ namespace BulkInsert.Cascade.Samples
         public int StudentId { get; set; }
     }
 }
+```
+## Output
+```console
+Before Bulk Insert: Students - 100, Grades:30000
+After Bulk Insert: Students - 400, Grades:40000
+It took 2046 ms
 ```

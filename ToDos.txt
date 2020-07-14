@@ -1,6 +1,6 @@
 TODO:
-1) samples
-2) intro
+-- 1) samples
+-- 2) intro
 3) EF6/EF core
 4) .NET framework/.NET standart
 5) Better exceptions handling
@@ -9,3 +9,4 @@ TODO:
 8) Pipeline - automatic build
 9) Nullable Types
 10) Automatic 
+11) check naming + methods names etc.
