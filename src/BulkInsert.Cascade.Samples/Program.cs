@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using BulkInsert.Cascade.Shared;
 
 namespace BulkInsert.Cascade.Samples
 {

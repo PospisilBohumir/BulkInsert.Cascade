@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Helpers;
 using BulkInsert.Cascade.Shared;
 using EntityFramework.Metadata;
 using EntityFramework.Metadata.Extensions;
@@ -25,7 +24,7 @@ namespace BulkInsert.Cascade
 
         public PropertyDescription GetPk<T>()
         {
-            return ToDescription(_context.GetPk<T>());
+            return ToDescription(_context.Db<T>().Pks.Single());
         }
 
         private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
