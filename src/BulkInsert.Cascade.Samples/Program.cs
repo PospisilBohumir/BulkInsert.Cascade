@@ -28,9 +28,7 @@ namespace BulkInsert.Cascade.Samples
                         SubjectName = "Some",
                     }).ToList()
                 }).ToList();
-            using var transaction = ctx.Database.BeginTransaction();
-            await ctx.BulkInsertCascade(transaction, students, new Cascade<Student, Grade>(o => o.Grades));
-            transaction.Commit();
+            await ctx.BulkInsertCascade(students, new Cascade<Student, Grade>(o => o.Grades));
             Console.WriteLine($"After Bulk Insert: Students - {await ctx.Students.CountAsync()}, Grades:{await ctx.Grades.CountAsync()}");
             Console.WriteLine($"It took {stopwatch.ElapsedMilliseconds} ms");
             Console.ReadKey();
