@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity.Spatial;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Tests.TestContext;
 using Xunit;
@@ -31,7 +32,8 @@ namespace BulkInsert.Cascade.Tests
                 IntValue = 666,
                 LongNullableValue = 65536,
                 LongValue = 151,
-                StringValue = Guid.NewGuid().ToString()
+                StringValue = Guid.NewGuid().ToString(),
+//                Location = DbGeography.FromText("POINT(-122.336106 47.605049)"),
             });
         }
     }

@@ -13,14 +13,6 @@ namespace BulkInsert.Cascade.Shared
     {
         private const int BulkCopyTimeout = 10 * 60;
 
-        /// <summary>
-        ///     Inserts <paramref name="entities" /> in Bulk operation
-        /// </summary>
-        /// <typeparam name="T">Entity type</typeparam>
-        /// <param name="context">Database Context</param>
-        /// <param name="transaction">Open transaction</param>
-        /// <param name="entities">List of entities which should be inserted into database</param>
-        /// <param name="keepIdentity">True, when id should be inserted ,false when id should be generated</param>
         public static async Task BulkInsert<T>(this IContextAdapter contextAdapter, IEnumerable<T> entities,
             bool keepIdentity = false)
         {

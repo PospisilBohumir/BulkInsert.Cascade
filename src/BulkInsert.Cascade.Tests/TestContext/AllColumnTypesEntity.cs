@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity.Spatial;
 
 namespace BulkInsert.Cascade.Tests.TestContext
 {
@@ -22,6 +23,9 @@ namespace BulkInsert.Cascade.Tests.TestContext
 
         public TestEnum EnumValue { get; set; }
         public TestEnum? EnumNullableValue { get; set; }
+
+        //TODO: figure out why is not possible to transfer value into data table
+//        public DbGeography Location { get; set; }
     }
 
     public enum TestEnum
