@@ -20,8 +20,7 @@ namespace BulkInsert.Cascade
             _context = dbContext;
             _transaction = transaction;
         }
-
-
+        
         public PropertyDescription GetPk<T>()
         {
             return ToDescription(_context.Db<T>().Pks.Single());
@@ -44,12 +43,13 @@ namespace BulkInsert.Cascade
                 : propertyMaps.Single(o => o.PropertyName == propertyName);
             return property.PropertyName;
         }
+        public string GetNavigationProperty<T>(string path)
+            => _context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
+
 
         public IEnumerable<PropertyDescription> GetProperties<T>()
             => _context.Db<T>().Properties.Where(o => !o.IsNavigationProperty).Select(ToDescription);
 
-        public string GetNavigationProperty<T>(string path)
-            => _context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
 
         public string GetTableName<T>() => _context.Db<T>().TableName;
 
