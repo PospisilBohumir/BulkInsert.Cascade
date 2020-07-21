@@ -21,8 +21,8 @@ namespace BulkInsert.Cascade.EfCore
             _transaction = transaction;
         }
 
-        public PropertyDescription GetPk<T>() => _context.Model.FindEntityType(typeof(T)).GetKeys()
-            .Select(o => GetPropDescription(o.Properties.Single())).Single();
+        public PropertyDescription GetPk<T>() => _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties
+            .Select(GetPropDescription).Single();
 
         public string GetNavigationProperty<TDestination>(string propertyName, Type type)
         {
@@ -42,7 +42,7 @@ namespace BulkInsert.Cascade.EfCore
             //.Where(o => !o.IsNavigationProperty)
             .Select(GetPropDescription);
 
-        private PropertyDescription GetPropDescription(IProperty o)
+        private static PropertyDescription GetPropDescription(IProperty o)
         {
             return new PropertyDescription
             {
@@ -50,7 +50,7 @@ namespace BulkInsert.Cascade.EfCore
                 IsDiscriminator = false, //TODO: figure out how to find it
                 Type = o.ClrType,
                 PropertyName = o.Name,
-                IsIdentity = false, //TODO: figure out how to find it
+                IsIdentity = o.GetValueGenerationStrategy()==SqlServerValueGenerationStrategy.IdentityColumn
             };
         }
 

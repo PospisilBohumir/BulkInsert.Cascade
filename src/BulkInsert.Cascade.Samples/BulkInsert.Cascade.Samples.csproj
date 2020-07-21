@@ -5,7 +5,7 @@
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BulkInsert.Cascade\BulkInsert.Cascade.csproj" />
+    <ProjectReference Include="..\BulkInsert.Cascade.Ef6\BulkInsert.Cascade.Ef6.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />

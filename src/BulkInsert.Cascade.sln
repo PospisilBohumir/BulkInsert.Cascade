@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Shared", "BulkInsert.Cascade.Shared\BulkInsert.Cascade.Shared.csproj", "{1D58AB85-2534-480A-8592-F5AA88AF5DF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade", "BulkInsert.Cascade\BulkInsert.Cascade.csproj", "{99B46CB7-8BFD-4F10-AE27-86800FA936E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Ef6", "BulkInsert.Cascade.Ef6\BulkInsert.Cascade.Ef6.csproj", "{99B46CB7-8BFD-4F10-AE27-86800FA936E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkInsert.Cascade.EfCore", "BulkInsert.Cascade.EfCore\BulkInsert.Cascade.EfCore.csproj", "{7DB5C0FA-279B-44B8-B25E-8889BC8CC4E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.EfCore", "BulkInsert.Cascade.EfCore\BulkInsert.Cascade.EfCore.csproj", "{7DB5C0FA-279B-44B8-B25E-8889BC8CC4E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
