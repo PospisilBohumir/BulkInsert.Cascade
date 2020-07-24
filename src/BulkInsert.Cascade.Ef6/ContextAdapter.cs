@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Spatial;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Shared;
 using EntityFramework.Metadata;
 using EntityFramework.Metadata.Extensions;
-using Microsoft.SqlServer.Types;
 
 namespace BulkInsert.Cascade.Ef6
 {
@@ -31,8 +29,7 @@ namespace BulkInsert.Cascade.Ef6
         private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
         {
             PropertyName = map.PropertyName,
-            Type = map.Type == typeof(DbGeography) ? typeof(SqlGeography) : map.Type,
-            DataTransform = map.Type == typeof(DbGeography) ? o => SqlGeography.Parse(((DbGeography)o).AsText()) : ((Func<object, object>)(o => o)),
+            Type = map.Type,
             IsIdentity = map.IsIdentity,
             ColumnName = map.ColumnName,
             IsDiscriminator = map.IsDiscriminator,

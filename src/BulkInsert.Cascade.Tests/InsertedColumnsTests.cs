@@ -1,8 +1,6 @@
 using System;
-using System.Data.Entity.Spatial;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Tests.TestContext;
-using Microsoft.SqlServer.Types;
 using Xunit;
 
 namespace BulkInsert.Cascade.Tests

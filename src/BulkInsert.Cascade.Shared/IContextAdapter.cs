@@ -25,6 +25,5 @@ namespace BulkInsert.Cascade.Shared
         public string PropertyName { get; set; }
         public Type Type { get; set; }
         public bool IsIdentity { get; set; }
-        public Func<object, object> DataTransform { get; set; } = o => o;
     }
 }

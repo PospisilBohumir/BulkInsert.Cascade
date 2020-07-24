@@ -22,3 +22,4 @@ TODO:
 --12) created main project for both net standard and .net framework 4.6.1
 13) Tests for Inheritence
 14) ?Tests for for multiple referencies ?
+15) Tests are not thread safe - if all of them are ran then error appears

@@ -42,14 +42,13 @@ namespace BulkInsert.Cascade.Shared
                 GetValue = o.IsDiscriminator
                     ? x => contextAdapter.GetDiscriminatorValue(x.GetType())
                     : ExpressHelper.GetPropGetter<T>(o.PropertyName).Compile(),
-                o.DataTransform,
             }).ToArray();
             foreach (var entity in entities)
             {
                 var dataRow = table.Rows.Add();
                 foreach (var column in columns)
                 {
-                    dataRow[column.ColumnName] = column.DataTransform(column.GetValue(entity)) ?? DBNull.Value;
+                    dataRow[column.ColumnName] = column.GetValue(entity) ?? DBNull.Value;
                 }
             }
 
