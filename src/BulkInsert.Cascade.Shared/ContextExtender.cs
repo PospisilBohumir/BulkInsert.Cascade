@@ -40,15 +40,16 @@ namespace BulkInsert.Cascade.Shared
             {
                 o.ColumnName,
                 GetValue = o.IsDiscriminator
-                    ? x => typeof(T).Name
-                    : ExpressHelper.GetPropGetter<T>(o.PropertyName).Compile()
+                    ? x => contextAdapter.GetDiscriminatorValue(x.GetType())
+                    : ExpressHelper.GetPropGetter<T>(o.PropertyName).Compile(),
+                o.DataTransform,
             }).ToArray();
             foreach (var entity in entities)
             {
                 var dataRow = table.Rows.Add();
                 foreach (var column in columns)
                 {
-                    dataRow[column.ColumnName] = column.GetValue(entity) ?? DBNull.Value;
+                    dataRow[column.ColumnName] = column.DataTransform(column.GetValue(entity)) ?? DBNull.Value;
                 }
             }
 
@@ -60,12 +61,20 @@ namespace BulkInsert.Cascade.Shared
             var result = new DataTable();
             foreach (var column in columns)
             {
-                var propertyType = column.Type;
-                result.Columns.Add(column.ColumnName,
-                    propertyType.IsNullable() ? propertyType.GetGenericArguments().Single() : propertyType);
+                result.Columns.Add(column.ColumnName, GetType(column));
             }
 
             return result;
+        }
+
+        private static Type GetType(PropertyDescription column)
+        {
+            if (column.IsDiscriminator)
+            {
+                return typeof(string);
+            }
+            var propertyType = column.Type;
+            return propertyType.IsNullable() ? propertyType.GetGenericArguments().Single() : propertyType;
         }
 
         public static async Task BulkInsertWithIdGeneration<T>(this IContextAdapter contextAdapter, IList<T> forSave)

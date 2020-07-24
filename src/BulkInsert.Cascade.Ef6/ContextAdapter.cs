@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Shared;
 using EntityFramework.Metadata;
 using EntityFramework.Metadata.Extensions;
+using Microsoft.SqlServer.Types;
 
-namespace BulkInsert.Cascade
+namespace BulkInsert.Cascade.Ef6
 {
     public class ContextAdapter : IContextAdapter
     {
@@ -29,13 +31,14 @@ namespace BulkInsert.Cascade
         private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
         {
             PropertyName = map.PropertyName,
-            Type = map.Type,
+            Type = map.Type == typeof(DbGeography) ? typeof(SqlGeography) : map.Type,
+            DataTransform = map.Type == typeof(DbGeography) ? o => SqlGeography.Parse(((DbGeography)o).AsText()) : ((Func<object, object>)(o => o)),
             IsIdentity = map.IsIdentity,
             ColumnName = map.ColumnName,
-            IsDiscriminator = map.IsDiscriminator
+            IsDiscriminator = map.IsDiscriminator,
         };
 
-        public string GetNavigationProperty<TDestination>(string propertyName, Type type)
+        public string GetForwardNavigationProperty<TDestination>(string propertyName, Type type)
         {
             var propertyMaps = _context.Db<TDestination>().Properties;
             var property = propertyName == null
@@ -43,7 +46,7 @@ namespace BulkInsert.Cascade
                 : propertyMaps.Single(o => o.PropertyName == propertyName);
             return property.PropertyName;
         }
-        public string GetNavigationProperty<T>(string path)
+        public string GetBackwardNavigationProperty<T>(string path)
             => _context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
 
 
@@ -54,6 +57,7 @@ namespace BulkInsert.Cascade
         public string GetTableName<T>() => _context.Db<T>().TableName;
 
         public async Task<T> RunScalar<T>(string sql) => await _context.Database.SqlQuery<T>(sql).FirstAsync();
+        public object GetDiscriminatorValue(Type type) => type.Name;
 
         public SqlTransaction GeTransaction() => (SqlTransaction) _transaction.UnderlyingTransaction;
     }

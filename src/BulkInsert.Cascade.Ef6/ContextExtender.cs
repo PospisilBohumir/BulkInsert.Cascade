@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Shared;
 
-namespace BulkInsert.Cascade
+namespace BulkInsert.Cascade.Ef6
 {
     public static class ContextExtender
     {

@@ -46,7 +46,7 @@ namespace BulkInsert.Cascade.Shared
         private Action<TSource, TSource> GetCopyPk(IContextAdapter contextAdapter)
         {
             var path = ExpressHelper.GetPath(_extractor);
-            var propertyName = contextAdapter.GetNavigationProperty<TSource>(path);
+            var propertyName = contextAdapter.GetBackwardNavigationProperty<TSource>(path);
             var expression = ExpressHelper.CreateCopy<TSource, TSource>(
                 $"{path}.{contextAdapter.GetPk<TSource>().PropertyName}", propertyName);
             return expression.Compile();

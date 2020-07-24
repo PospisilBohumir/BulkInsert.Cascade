@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using System.Threading.Tasks;
+using BulkInsert.Cascade.Ef6;
 using BulkInsert.Cascade.Shared;
 using BulkInsert.Cascade.Tests.TestContext;
 using FluentAssertions;

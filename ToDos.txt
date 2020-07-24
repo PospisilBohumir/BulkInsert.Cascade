@@ -10,25 +10,15 @@ TODO:
 9) Nullable Types
 10) check naming + methods names etc.
 11) figure out why DbGeography is not posible to bulk insert
-12) created main project for both net standard and .net framework 4.6.1
-
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net461</TargetFrameworks>
-    <LangVersion>8</LangVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include="EntityFramework.Metadata" Version="1.0.2.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$TargetFramework' == 'netstandard2.1'">
-    <Reference Include="EntityFramework.Metadata">
-      <HintPath>..\EntityFramework.Metadata\netstandard2.1\EntityFramework.Metadata.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BulkInsert.Cascade.Shared\BulkInsert.Cascade.Shared.csproj" />
-  </ItemGroup>
-</Project>
+        private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
+        {
+            PropertyName = map.PropertyName,
+            Type = map.Type == typeof(DbGeography) ? typeof(SqlGeography) : map.Type,
+            DataTransform = map.Type == typeof(DbGeography) ? o => SqlGeography.Parse(((DbGeography)o).AsText()) : ((Func<object, object>)(o => o)),
+            IsIdentity = map.IsIdentity,
+            ColumnName = map.ColumnName,
+            IsDiscriminator = map.IsDiscriminator,
+        };
+--12) created main project for both net standard and .net framework 4.6.1
+13) Tests for Inheritence
+14) ?Tests for for multiple referencies ?

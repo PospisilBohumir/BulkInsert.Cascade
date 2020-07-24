@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using BulkInsert.Cascade.Ef6;
 using BulkInsert.Cascade.Tests.TestContext;
 using FluentAssertions;
 

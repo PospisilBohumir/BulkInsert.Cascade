@@ -8,12 +8,14 @@ namespace BulkInsert.Cascade.Shared
     public interface IContextAdapter
     {
         PropertyDescription GetPk<T>();
-        string GetNavigationProperty<TDestination>(string propertyName, Type type);
+        string GetForwardNavigationProperty<TDestination>(string propertyName, Type type);
+        string GetBackwardNavigationProperty<T>(string path);
         string GetTableName<T>();
         IEnumerable<PropertyDescription> GetProperties<T>();
-        public string GetNavigationProperty<T>(string path);
         SqlTransaction GeTransaction();
         Task<T> RunScalar<T>(string sql);
+
+        object GetDiscriminatorValue(Type type);
     }
 
     public class PropertyDescription
@@ -23,5 +25,6 @@ namespace BulkInsert.Cascade.Shared
         public string PropertyName { get; set; }
         public Type Type { get; set; }
         public bool IsIdentity { get; set; }
+        public Func<object, object> DataTransform { get; set; } = o => o;
     }
 }

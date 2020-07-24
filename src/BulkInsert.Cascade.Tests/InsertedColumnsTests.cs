@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity.Spatial;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Tests.TestContext;
+using Microsoft.SqlServer.Types;
 using Xunit;
 
 namespace BulkInsert.Cascade.Tests
@@ -33,7 +34,7 @@ namespace BulkInsert.Cascade.Tests
                 LongNullableValue = 65536,
                 LongValue = 151,
                 StringValue = Guid.NewGuid().ToString(),
-//                Location = DbGeography.FromText("POINT(-122.336106 47.605049)"),
+                //Location = DbGeography.FromText("POINT(-122.336106 47.605049)"),
             });
         }
     }
