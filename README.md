@@ -1,13 +1,14 @@
 # BulkInsert.Cascade
-Simple library for cascade bulkinsert using Entity Framework supporting MS SQL
+Simple library for cascade bulk-insert using Entity Framework supporting MS SQL
 
 ## Features
-- Bulkinsert EF entities
+- Bulk-insert EF entities, info about entities is retrieved from EF
 - retrieve Id from DB for identity PK using Hi/Lo algorithm
 - propagation id to foreign key columns
-- cascade bulkinsert with unlimited depth
+- cascade bulk-insert with unlimited depth
 
 ## Known Issues and limitation
+- Obviously just MS SQL is supported
 - DbGeography column is not supported - I didn't found the way to put value into datatable and currently this problem is my priority
 - Just single column primary is allowed in case you want to do cascade bulk-insert
 - retrieving primary keys is working just for identity columns and just for C# types int, long and short. If primary Key is not identity then I expect that primary keys will be fill out  and I don’t do any detection of new/existing entities – I don’t think that it makes much sense to extend it

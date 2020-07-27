@@ -2,6 +2,26 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net461</TargetFrameworks>
     <LangVersion>8</LangVersion>
+    <Authors>Bohumir Pospisil</Authors>
+    <PackageTags>MSSQL, bulk-insert, bulkinsert, cascade bulkinsert, Entity Framework</PackageTags>
+    <Title>BulkInsert.Cascade</Title>
+    <Description>Simple library for cascade bulk-insert using Entity Framework supporting MS SQL
+      Features:
+      - Bulk-insert EF entities, info about entities is retrieved from EF
+      - retrieve Id from DB for identity PK using Hi/Lo algorithm
+      - propagation id to foreign key columns
+      - cascade bulk-insert with unlimited depth</Description>
+    <PackageId>BulkInsert.Cascade.Ef6</PackageId>
+    <Version>0.8.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/PospisilBohumir/BulkInsert.Cascade</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PospisilBohumir/BulkInsert.Cascade</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <BuildCommand>$(BuildCommand) -IncludeReferencedProjects</BuildCommand>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DocumentationFile>.\BulkInsert.Cascade.Ef6.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
@@ -15,6 +35,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BulkInsert.Cascade.Shared\BulkInsert.Cascade.Shared.csproj" />
+    <ProjectReference Include="..\BulkInsert.Cascade.Shared\BulkInsert.Cascade.Shared.csproj"/>
   </ItemGroup>
 </Project>

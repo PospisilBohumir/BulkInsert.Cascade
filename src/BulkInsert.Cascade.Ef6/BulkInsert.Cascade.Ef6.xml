@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BulkInsert.Cascade.Ef6</name>
+    </assembly>
+    <members>
+        <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsert``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Boolean)">
+            <summary>
+                Starts transaction and inserts <paramref name="entities" /> in Bulk operation
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="context">Database Context</param>
+            <param name="entities">List of entities which should be inserted into database</param>
+            <param name="keepIdentity">True, when id should be inserted ,false when id should be generated</param>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsertWithIdGeneration``1(System.Data.Entity.DbContext,System.Collections.Generic.IList{``0})">
+            <summary>
+                Starts transaction and inserts <paramref name="entities" /> in Bulk operation and retrieve primary key using Hi/Lo algorithm if key is identity
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="context">Database Context</param>
+            <param name="entities">List of entities which should be inserted into database</param>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsertCascade``1(System.Data.Entity.DbContext,System.Collections.Generic.IList{``0},BulkInsert.Cascade.Shared.ICascade{``0}[])">
+            <summary>
+                Starts transaction and inserts <paramref name="entities" /> in Bulk operation in the <paramref name="cascades"/> 
+            </summary>
+            <typeparam name="T">Entity type</typeparam>
+            <param name="context">Database Context</param>
+            <param name="entities">List of entities which should be inserted into database</param>
+            <param name="cascades">description of insert cascade</param>
+        </member>
+    </members>
+</doc>
