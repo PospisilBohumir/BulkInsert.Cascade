@@ -20,7 +20,9 @@ namespace BulkInsert.Cascade.Tests.TestContext
         public IDbSet<ComplexTypeTestEntity> ComplexTypeTestEntities { get; set; }
         public IDbSet<ReverseLevel1Entity> ReverseLevel1Entities { get; set; }
         public IDbSet<ForwardLevel1Entity> ForwardLevel3Entities { get; set; }
-
         public IDbSet<InheritanceBaseEntity> InheritanceBaseEntities { get; set; }
+        public IDbSet<MultipleKeyEntity> MultipleKeyEntities { get; set; }
+        public IDbSet<DbGeographyEntity> DbGeographyEntities { get; set; }
+        public IDbSet<MissingFkMainEntity> MissingFkMainEntities { get; set; }
     }
 }

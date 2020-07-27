@@ -8,8 +8,8 @@ namespace BulkInsert.Cascade.Shared
     public interface IContextAdapter
     {
         PropertyDescription GetPk<T>();
-        string GetForwardNavigationProperty<TDestination>(string propertyName, Type type);
-        string GetBackwardNavigationProperty<T>(string path);
+        string GetForwardKeyProperty<TDestination>(string propertyName, Type type);
+        string GetBackwardKeyProperty<T>(string path);
         string GetTableName<T>();
         IEnumerable<PropertyDescription> GetProperties<T>();
         SqlTransaction GeTransaction();

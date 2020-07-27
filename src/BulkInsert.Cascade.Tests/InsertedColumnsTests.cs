@@ -1,6 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using BulkInsert.Cascade.Ef6;
+using BulkInsert.Cascade.Shared;
 using BulkInsert.Cascade.Tests.TestContext;
+using FluentAssertions;
 using Xunit;
 
 namespace BulkInsert.Cascade.Tests
@@ -34,6 +37,16 @@ namespace BulkInsert.Cascade.Tests
                 StringValue = Guid.NewGuid().ToString(),
                 //Location = DbGeography.FromText("POINT(-122.336106 47.605049)"),
             });
+        }
+
+        [Fact]
+        public async Task DbGeographyTest()
+        {
+            Func<Task> geography = async () =>
+            {
+                await Context.BulkInsertWithIdGeneration(new[] { new DbGeographyEntity()  });
+            };
+            await geography.Should().ThrowAsync<BulkInsertException>();
         }
     }
 }

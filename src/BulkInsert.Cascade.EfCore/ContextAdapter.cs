@@ -24,12 +24,12 @@ namespace BulkInsert.Cascade.EfCore
         public PropertyDescription GetPk<T>() => _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties
             .Select(GetPropDescription).Single();
 
-        public string GetForwardNavigationProperty<TDestination>(string propertyName, Type type)
+        public string GetForwardKeyProperty<TDestination>(string propertyName, Type type)
         {
             throw new NotImplementedException();
         }
 
-        public string GetBackwardNavigationProperty<T>(string path)
+        public string GetBackwardKeyProperty<T>(string path)
         {
             //_context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
             //            return _context.Model.FindEntityType(typeof(T)).GetNavigations().Single(o => o.Name == path).Name;

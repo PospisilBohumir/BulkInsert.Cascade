@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,10 +21,15 @@ namespace BulkInsert.Cascade.Ef6
             _context = dbContext;
             _transaction = transaction;
         }
-        
+
         public PropertyDescription GetPk<T>()
         {
-            return ToDescription(_context.Db<T>().Pks.Single());
+            var pks = _context.Db<T>().Pks.ToArray();
+            if (pks.Length != 1)
+            {
+                throw new BulkInsertException($"Only single key entities are supported in object '{typeof(T).Name}' were found {pks.Length} keys");
+            }
+            return ToDescription(pks[0]);
         }
 
         private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
@@ -35,27 +41,48 @@ namespace BulkInsert.Cascade.Ef6
             IsDiscriminator = map.IsDiscriminator,
         };
 
-        public string GetForwardNavigationProperty<TDestination>(string propertyName, Type type)
+        public string GetForwardKeyProperty<TDestination>(string propertyName, Type type)
         {
             var propertyMaps = _context.Db<TDestination>().Properties;
-            var property = propertyName == null
-                ? propertyMaps.Single(o => o.NavigationProperty?.Type == type)
-                : propertyMaps.Single(o => o.PropertyName == propertyName);
-            return property.PropertyName;
+            var properties = (propertyName == null
+                ? propertyMaps.Where(o => o.NavigationProperty?.Type == type)
+                : propertyMaps.Where(o => o.PropertyName == propertyName)).ToArray();
+            if (properties.Length == 1)
+            {
+                return properties[0].PropertyName;
+            }
+            var error =
+                $"Cannot find in Entity {typeof(TDestination).Name} foreign key property for type {type.Name}" +
+                (propertyName == null ? "" : $" and property name '{propertyName}'");
+            throw new BulkInsertException(error);
         }
-        public string GetBackwardNavigationProperty<T>(string path)
-            => _context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
 
+        public string GetBackwardKeyProperty<T>(string path)
+        {
+            var properties = _context.Db<T>().Properties.Where(o => o.NavigationProperty?.PropertyName == path).ToArray();
+            if (properties.Length != 1)
+            {
+                throw new BulkInsertException($"Cannot find in Entity {typeof(T).Name} find foreign key property");
+            }
+            return properties[0].PropertyName;
+        }
 
         public IEnumerable<PropertyDescription> GetProperties<T>()
-            => _context.Db<T>().Properties.Where(o => !o.IsNavigationProperty).Select(ToDescription);
+        {
+            var propertyMaps = _context.Db<T>().Properties.Where(o => !o.IsNavigationProperty).ToArray();
+            var geographyColumns = propertyMaps.Where(o => o.Type == typeof(DbGeography)).ToArray();
+            if (geographyColumns.Any())
+            {
+                throw new BulkInsertException(
+                    $"'{nameof(DbGeography)}' type column is not supported. Type:'{typeof(T).Name}',Properties:'{string.Join(",", geographyColumns.Select(o => o.PropertyName))}'");
+            }
 
+            return propertyMaps.Select(ToDescription);
+        }
 
         public string GetTableName<T>() => _context.Db<T>().TableName;
-
         public async Task<T> RunScalar<T>(string sql) => await _context.Database.SqlQuery<T>(sql).FirstAsync();
         public object GetDiscriminatorValue(Type type) => type.Name;
-
         public SqlTransaction GeTransaction() => (SqlTransaction) _transaction.UnderlyingTransaction;
     }
 }

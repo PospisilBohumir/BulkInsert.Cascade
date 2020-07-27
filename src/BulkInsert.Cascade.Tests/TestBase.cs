@@ -25,13 +25,10 @@ namespace BulkInsert.Cascade.Tests
         protected async Task DefaultTest<T>(T value, Func<T,Expression<Func<T,bool>>> filter) 
             where T : class
         {
-            using var transaction = Context.Database.BeginTransaction();
-            await Context.BulkInsertWithIdGeneration(transaction, new[] { value });
-            transaction.Commit();
+            await Context.BulkInsertWithIdGeneration(new[] { value });
             var stored = await Context.Set<T>().SingleAsync(filter(value));
             stored.Should().BeEquivalentTo(value);
         }
-
 
         public void Dispose()
         {
