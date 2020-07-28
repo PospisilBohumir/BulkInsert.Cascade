@@ -5,13 +5,12 @@ using System.Data.Entity.Spatial;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Shared;
 using EntityFramework.Metadata;
 using EntityFramework.Metadata.Extensions;
 
 namespace BulkInsert.Cascade.Ef6
 {
-    public class ContextAdapter : IContextAdapter
+    internal class ContextAdapter : IContextAdapter
     {
         private readonly DbContext _context;
         private readonly DbContextTransaction _transaction;

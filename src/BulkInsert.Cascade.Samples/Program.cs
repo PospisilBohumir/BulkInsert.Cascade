@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Ef6;
-using BulkInsert.Cascade.Shared;
 
 namespace BulkInsert.Cascade.Samples
 {

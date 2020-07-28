@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Shared;
 
 namespace BulkInsert.Cascade.Ef6
 {
+    /// <summary>
+    ///     Extender for cascade bulk-insert
+    /// </summary>
     public static class ContextExtender
     {
         private const int BulkCopyTimeout = 10 * 60;
@@ -21,7 +23,8 @@ namespace BulkInsert.Cascade.Ef6
         {
             if (context.Database.CurrentTransaction != null)
             {
-                await new ContextAdapter(context, context.Database.CurrentTransaction).BulkInsert(entities, keepIdentity);
+                await new ContextAdapter(context, context.Database.CurrentTransaction).BulkInsert(entities,
+                    keepIdentity);
             }
             else
             {
@@ -34,16 +37,19 @@ namespace BulkInsert.Cascade.Ef6
         }
 
         /// <summary>
-        ///     Starts transaction and inserts <paramref name="entities" /> in Bulk operation and retrieve primary key using Hi/Lo algorithm if key is identity
+        ///     Starts transaction and inserts <paramref name="entities" /> in Bulk operation and retrieve primary key using Hi/Lo
+        ///     algorithm if key is identity
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="context">Database Context</param>
         /// <param name="entities">List of entities which should be inserted into database</param>
-        public static async Task BulkInsertWithIdGeneration<T>(this DbContext context, IList<T> entities) where T : class
+        public static async Task BulkInsertWithIdGeneration<T>(this DbContext context, IList<T> entities)
+            where T : class
         {
             if (context.Database.CurrentTransaction != null)
             {
-                await new ContextAdapter(context, context.Database.CurrentTransaction).BulkInsertWithIdGeneration(entities);
+                await new ContextAdapter(context, context.Database.CurrentTransaction)
+                    .BulkInsertWithIdGeneration(entities);
             }
             else
             {
@@ -58,13 +64,14 @@ namespace BulkInsert.Cascade.Ef6
 
 
         /// <summary>
-        ///     Starts transaction and inserts <paramref name="entities" /> in Bulk operation in the <paramref name="cascades"/> 
+        ///     Starts transaction and inserts <paramref name="entities" /> in Bulk operation in the <paramref name="cascades" />
         /// </summary>
         /// <typeparam name="T">Entity type</typeparam>
         /// <param name="context">Database Context</param>
         /// <param name="entities">List of entities which should be inserted into database</param>
         /// <param name="cascades">description of insert cascade</param>
-        public static async Task BulkInsertCascade<T>(this DbContext context, IList<T> entities, params ICascade<T>[] cascades) where T : class
+        public static async Task BulkInsertCascade<T>(this DbContext context, IList<T> entities,
+            params ICascade<T>[] cascades) where T : class
         {
             if (context.Database.CurrentTransaction != null)
             {

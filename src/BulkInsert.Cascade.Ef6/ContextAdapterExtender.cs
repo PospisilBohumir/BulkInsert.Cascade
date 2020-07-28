@@ -4,12 +4,12 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Shared.Helpers;
-using BulkInsert.Cascade.Shared.HiLo;
+using BulkInsert.Cascade.Ef6.Helpers;
+using BulkInsert.Cascade.Ef6.HiLo;
 
-namespace BulkInsert.Cascade.Shared
+namespace BulkInsert.Cascade.Ef6
 {
-    public static class ContextExtender
+    internal static class ContextAdapterExtender
     {
         private const int BulkCopyTimeout = 10 * 60;
 

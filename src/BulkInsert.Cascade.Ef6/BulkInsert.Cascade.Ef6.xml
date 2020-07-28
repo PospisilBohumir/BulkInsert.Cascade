@@ -4,6 +4,45 @@
         <name>BulkInsert.Cascade.Ef6</name>
     </assembly>
     <members>
+        <member name="T:BulkInsert.Cascade.Ef6.BulkInsertException">
+            <summary>
+                Cascade bulk-insert Exception
+            </summary>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.BulkInsertException.#ctor(System.String)">
+            <summary>Creates a new BulkInsertException</summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="T:BulkInsert.Cascade.Ef6.Cascade`2">
+            <summary>
+                Definition of one to many cascade
+            </summary>
+            <typeparam name="TSource">Root entity</typeparam>
+            <typeparam name="TDestination">Dependent entity</typeparam>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.Cascade`2.#ctor(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{`1}}},BulkInsert.Cascade.Ef6.ICascade{`1}[])">
+            <summary>
+                Creates definition of one to many cascade
+            </summary>
+            <param name="extractor">Path to navigation property</param>
+            <param name="cascades">Other cascades dependent on <typeparamref name="TDestination" /></param>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.Cascade`2.#ctor(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{`1}}},System.Linq.Expressions.Expression{System.Func{`1,System.Object}},BulkInsert.Cascade.Ef6.ICascade{`1}[])">
+            <summary>
+                Creates definition of one to many cascade
+            </summary>
+            <param name="extractor">Path to navigation property</param>
+            <param name="propertyExpression">
+                Path to key property - usable when there is more then one relation between those
+                entities
+            </param>
+            <param name="cascades">Other cascades dependent on <typeparamref name="TDestination" /></param>
+        </member>
+        <member name="T:BulkInsert.Cascade.Ef6.ContextExtender">
+            <summary>
+                Extender for cascade bulk-insert
+            </summary>
+        </member>
         <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsert``1(System.Data.Entity.DbContext,System.Collections.Generic.IEnumerable{``0},System.Boolean)">
             <summary>
                 Starts transaction and inserts <paramref name="entities" /> in Bulk operation
@@ -15,20 +54,43 @@
         </member>
         <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsertWithIdGeneration``1(System.Data.Entity.DbContext,System.Collections.Generic.IList{``0})">
             <summary>
-                Starts transaction and inserts <paramref name="entities" /> in Bulk operation and retrieve primary key using Hi/Lo algorithm if key is identity
+                Starts transaction and inserts <paramref name="entities" /> in Bulk operation and retrieve primary key using Hi/Lo
+                algorithm if key is identity
             </summary>
             <typeparam name="T">Entity type</typeparam>
             <param name="context">Database Context</param>
             <param name="entities">List of entities which should be inserted into database</param>
         </member>
-        <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsertCascade``1(System.Data.Entity.DbContext,System.Collections.Generic.IList{``0},BulkInsert.Cascade.Shared.ICascade{``0}[])">
+        <member name="M:BulkInsert.Cascade.Ef6.ContextExtender.BulkInsertCascade``1(System.Data.Entity.DbContext,System.Collections.Generic.IList{``0},BulkInsert.Cascade.Ef6.ICascade{``0}[])">
             <summary>
-                Starts transaction and inserts <paramref name="entities" /> in Bulk operation in the <paramref name="cascades"/> 
+                Starts transaction and inserts <paramref name="entities" /> in Bulk operation in the <paramref name="cascades" />
             </summary>
             <typeparam name="T">Entity type</typeparam>
             <param name="context">Database Context</param>
             <param name="entities">List of entities which should be inserted into database</param>
             <param name="cascades">description of insert cascade</param>
+        </member>
+        <member name="T:BulkInsert.Cascade.Ef6.Helpers.ExpressHelper">
+            <summary>
+                Helper used for parsing expressions
+            </summary>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.Helpers.ExpressHelper.GetPropGetter``1(System.String)">
+            <summary>
+                Creates property value getter from the property name
+            </summary>
+            <typeparam name="TObject">Type containing the property</typeparam>
+            <param name="path">Path to the property</param>
+            <returns>Property value getter expression</returns>
+        </member>
+        <member name="M:BulkInsert.Cascade.Ef6.Helpers.ExpressHelper.GetPath``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Gets path for expression <paramref name="exp" />
+            </summary>
+            <typeparam name="T">Type</typeparam>
+            <typeparam name="TProperty">Property type</typeparam>
+            <param name="exp">Property expression</param>
+            <returns>string representation of path to property</returns>
         </member>
     </members>
 </doc>

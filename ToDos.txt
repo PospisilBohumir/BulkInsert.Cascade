@@ -23,3 +23,26 @@ TODO:
 13) Tests for Inheritence
 14) ?Tests for for multiple referencies ?
 15) Tests are not thread safe - if all of them are ran then error appears
+16) Create better cascade abstraction
+    public interface ICascade<in T>
+    {
+        CascadeType Type { get; set; }
+
+    }
+
+    /// <summary>
+    ///     Type of cascade propagation
+    /// </summary>
+    public enum CascadeType
+    {
+        /// <summary>
+        ///     Foreign key propagation from parent entity to descendent entity
+        /// </summary>
+        ForwardsCascade,
+
+        /// <summary>
+        ///     Foreign key propagation from descendent to parent entity
+        /// </summary>
+        BackWards
+    }
+
