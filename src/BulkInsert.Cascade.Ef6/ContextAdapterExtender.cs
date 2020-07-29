@@ -23,7 +23,7 @@ namespace BulkInsert.Cascade.Ef6
                 BulkCopyTimeout = BulkCopyTimeout,
                 DestinationTableName = contextAdapter.GetTableName<T>()
             };
-            var table = contextAdapter.GetDataReader(entities);
+            var table = contextAdapter.GetDataTable(entities);
             foreach (var column in table.Columns.OfType<DataColumn>().Select(o => o.ColumnName))
             {
                 sqlBulkCopy.ColumnMappings.Add(column, column);
@@ -32,7 +32,7 @@ namespace BulkInsert.Cascade.Ef6
             await sqlBulkCopy.WriteToServerAsync(table);
         }
 
-        public static DataTable GetDataReader<T>(this IContextAdapter contextAdapter, IEnumerable<T> entities)
+        private static DataTable GetDataTable<T>(this IContextAdapter contextAdapter, IEnumerable<T> entities)
         {
             var propertyMaps = contextAdapter.GetProperties<T>().ToArray();
             var table = propertyMaps.CreateTable();
@@ -42,13 +42,14 @@ namespace BulkInsert.Cascade.Ef6
                 GetValue = o.IsDiscriminator
                     ? x => contextAdapter.GetDiscriminatorValue(x.GetType())
                     : ExpressHelper.GetPropGetter<T>(o.PropertyName).Compile(),
+                o.ValueTransform
             }).ToArray();
             foreach (var entity in entities)
             {
                 var dataRow = table.Rows.Add();
                 foreach (var column in columns)
                 {
-                    dataRow[column.ColumnName] = column.GetValue(entity) ?? DBNull.Value;
+                    dataRow[column.ColumnName] = column.ValueTransform(column.GetValue(entity)) ?? DBNull.Value;
                 }
             }
 
@@ -72,7 +73,7 @@ namespace BulkInsert.Cascade.Ef6
             {
                 return typeof(string);
             }
-            var propertyType = column.Type;
+            var propertyType = column.SqlType;
             return propertyType.IsNullable() ? propertyType.GetGenericArguments().Single() : propertyType;
         }
 

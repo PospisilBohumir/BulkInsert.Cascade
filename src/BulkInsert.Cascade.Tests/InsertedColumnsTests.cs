@@ -1,8 +1,9 @@
 using System;
+using System.Data.Entity;
+using System.Data.Entity.Spatial;
 using System.Threading.Tasks;
 using BulkInsert.Cascade.Ef6;
 using BulkInsert.Cascade.Tests.TestContext;
-using FluentAssertions;
 using Xunit;
 
 namespace BulkInsert.Cascade.Tests
@@ -34,18 +35,21 @@ namespace BulkInsert.Cascade.Tests
                 LongNullableValue = 65536,
                 LongValue = 151,
                 StringValue = Guid.NewGuid().ToString(),
-                //Location = DbGeography.FromText("POINT(-122.336106 47.605049)"),
             });
         }
 
         [Fact]
         public async Task DbGeographyTest()
         {
-            Func<Task> geography = async () =>
+            var e = new DbGeographyEntity
             {
-                await Context.BulkInsertWithIdGeneration(new[] { new DbGeographyEntity()  });
+                Geography = DbGeography.FromText("POINT(-122.336106 47.605049)"),
             };
-            await geography.Should().ThrowAsync<BulkInsertException>();
+            await Context.BulkInsertWithIdGeneration(new[] {e});
+            //NOTE: fluent assertion struggle with DbGeography so ordinary assert is used 
+            var stored = await Context.Set<DbGeographyEntity>()
+                .SingleAsync(o => o.Id==e.Id);
+            Assert.Equal(e.Geography.AsText(), stored.Geography.AsText());
         }
     }
 }

@@ -23,9 +23,6 @@ namespace BulkInsert.Cascade.Tests.TestContext
         
         public TestEnum EnumValue { get; set; }
         public TestEnum? EnumNullableValue { get; set; }
-
-        //TODO: figure out why is not possible to transfer value into data table
-        //public DbGeography Location { get; set; }
     }
 
     public enum TestEnum

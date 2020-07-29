@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EntityFramework.Metadata;
 using EntityFramework.Metadata.Extensions;
+using Microsoft.SqlServer.Types;
 
 namespace BulkInsert.Cascade.Ef6
 {
@@ -35,9 +36,13 @@ namespace BulkInsert.Cascade.Ef6
         {
             PropertyName = map.PropertyName,
             Type = map.Type,
+            SqlType = map.Type == typeof(DbGeography) ? typeof(SqlGeography) : map.Type,
             IsIdentity = map.IsIdentity,
             ColumnName = map.ColumnName,
             IsDiscriminator = map.IsDiscriminator,
+            ValueTransform = map.Type != typeof(DbGeography)
+                ? (Func<object, object>) (o => o)
+                : o => SqlGeography.Parse(((DbGeography) o).AsText()).MakeValid()
         };
 
         public string GetForwardKeyProperty<TDestination>(string propertyName, Type type)
@@ -69,13 +74,6 @@ namespace BulkInsert.Cascade.Ef6
         public IEnumerable<PropertyDescription> GetProperties<T>()
         {
             var propertyMaps = _context.Db<T>().Properties.Where(o => !o.IsNavigationProperty).ToArray();
-            var geographyColumns = propertyMaps.Where(o => o.Type == typeof(DbGeography)).ToArray();
-            if (geographyColumns.Any())
-            {
-                throw new BulkInsertException(
-                    $"'{nameof(DbGeography)}' type column is not supported. Type:'{typeof(T).Name}',Properties:'{string.Join(",", geographyColumns.Select(o => o.PropertyName))}'");
-            }
-
             return propertyMaps.Select(ToDescription);
         }
 

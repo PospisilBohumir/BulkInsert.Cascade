@@ -52,8 +52,7 @@ namespace BulkInsert.Cascade.Ef6
             _propertyName = propertyName;
             _cascades = cascades;
         }
-
-
+        
         public async Task InnerInsert(IEnumerable<TSource> source, IContextAdapter contextAdapter)
         {
             if (source == null)

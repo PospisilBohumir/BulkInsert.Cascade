@@ -24,6 +24,8 @@ namespace BulkInsert.Cascade.Ef6
         public bool IsDiscriminator { get; set; }
         public string PropertyName { get; set; }
         public Type Type { get; set; }
+        public Type SqlType { get; set; }
         public bool IsIdentity { get; set; }
+        public Func<object,object> ValueTransform { get; set; }
     }
 }
