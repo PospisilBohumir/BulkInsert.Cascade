@@ -42,7 +42,7 @@ namespace BulkInsert.Cascade.Ef6
             IsDiscriminator = map.IsDiscriminator,
             ValueTransform = map.Type != typeof(DbGeography)
                 ? (Func<object, object>) (o => o)
-                : o => SqlGeography.Parse(((DbGeography) o).AsText()).MakeValid()
+                : o => SqlGeography.Parse(((DbGeography) o).AsText())
         };
 
         public string GetForwardKeyProperty<TDestination>(string propertyName, Type type)
