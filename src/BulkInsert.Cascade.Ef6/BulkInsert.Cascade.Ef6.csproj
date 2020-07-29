@@ -12,7 +12,7 @@
       - propagation id to foreign key columns
       - cascade bulk-insert with unlimited depth</Description>
     <PackageId>BulkInsert.Cascade.Ef6</PackageId>
-    <Version>0.8.3</Version>
+    <Version>0.8.4</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/PospisilBohumir/BulkInsert.Cascade</RepositoryUrl>
