@@ -33,6 +33,12 @@ namespace BulkInsert.Cascade.Tests
 
         private async Task PkCheck<T>() where T : class, IName, new()
         {
+            Context.Set<T>().Add(
+                new T
+                {
+                    Name = Guid.NewGuid().ToString()
+                });
+            await Context.SaveChangesAsync();
             await DefaultTest(new T {Name = Guid.NewGuid().ToString()},
                 v => o => o.Name == v.Name);
         }

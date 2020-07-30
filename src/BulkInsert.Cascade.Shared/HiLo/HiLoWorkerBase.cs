@@ -39,8 +39,8 @@ end;
             var id = minId;
             foreach (var entity in entities)
             {
-                pkSetter(entity, id);
                 id = AddOne(id);
+                pkSetter(entity, id);
             }
         }
     }
