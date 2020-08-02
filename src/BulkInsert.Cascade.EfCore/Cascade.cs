@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Shared.Helpers;
+using BulkInsert.Cascade.EfCore.Helpers;
 
-namespace BulkInsert.Cascade.Shared
+namespace BulkInsert.Cascade.EfCore
 {
     /// <summary>
     ///     Definition of one to many cascade

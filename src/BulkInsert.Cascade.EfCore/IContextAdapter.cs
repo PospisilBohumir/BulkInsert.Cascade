@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
-namespace BulkInsert.Cascade.Shared
+namespace BulkInsert.Cascade.EfCore
 {
     public interface IContextAdapter
     {

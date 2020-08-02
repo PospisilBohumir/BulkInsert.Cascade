@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Shared;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace BulkInsert.Cascade.EfCore
 {
     public class ContextAdapter : IContextAdapter
     {
         private readonly DbContext _context;
-        private readonly DbTransaction _transaction;
+        private readonly IDbContextTransaction _transaction;
 
-        public ContextAdapter(DbContext context, DbTransaction transaction)
+        public ContextAdapter(DbContext context, IDbContextTransaction transaction)
         {
             _context = context;
             _transaction = transaction;
@@ -26,14 +26,27 @@ namespace BulkInsert.Cascade.EfCore
 
         public string GetForwardKeyProperty<TDestination>(string propertyName, Type type)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrWhiteSpace(propertyName)
+                ? _context.Model
+                    .FindEntityType(typeof(TDestination))
+                    .GetProperties()
+                    .Where(o => o.IsForeignKey())
+                    .Where(o => o.GetContainingForeignKeys().Select(x => x.PrincipalEntityType.ClrType).Contains(type))
+                    .Select(o => o.PropertyInfo.Name)
+                    .Single()
+                : propertyName;
         }
 
         public string GetBackwardKeyProperty<T>(string path)
         {
-            //_context.Db<T>().Properties.Single(o => o.NavigationProperty?.PropertyName == path).PropertyName;
-            //            return _context.Model.FindEntityType(typeof(T)).GetNavigations().Single(o => o.Name == path).Name;
-            throw new NotImplementedException();
+            var destinationType = typeof(T);
+            var type = destinationType.GetProperty(path)!.PropertyType;
+            return _context.Model.FindEntityType(destinationType)
+                .GetProperties()
+                .Where(o => o.IsForeignKey())
+                .Where(o => o.GetContainingForeignKeys().Select(x => x.PrincipalEntityType.ClrType).Contains(type))
+                .Select(o => o.PropertyInfo.Name)
+                .Single();
         }
 
         public string GetTableName<T>() => _context.Model.FindEntityType(typeof(T)).GetTableName();
@@ -46,20 +59,23 @@ namespace BulkInsert.Cascade.EfCore
             return new PropertyDescription
             {
                 ColumnName = o.GetColumnName(),
-                IsDiscriminator = o.Name == o.DeclaringEntityType.GetDiscriminatorProperty().Name,
+                IsDiscriminator = o.Name == o.DeclaringEntityType?.GetDiscriminatorProperty()?.Name,
                 Type = o.ClrType,
                 PropertyName = o.Name,
-                IsIdentity = o.GetValueGenerationStrategy() == SqlServerValueGenerationStrategy.IdentityColumn
+                IsIdentity = o.GetValueGenerationStrategy() == SqlServerValueGenerationStrategy.IdentityColumn,
+                SqlType = o.ClrType,
+                ValueTransform = x => x,
             };
         }
 
-        public SqlTransaction GeTransaction() => (SqlTransaction) _transaction;
+        public SqlTransaction GeTransaction() => (SqlTransaction) _transaction.GetDbTransaction();
 
         public async Task<T> RunScalar<T>(string sql)
         {
             await using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = sql;
+                command.Transaction = GeTransaction();
                 await _context.Database.OpenConnectionAsync();
                 return (T) await command.ExecuteScalarAsync();
             }

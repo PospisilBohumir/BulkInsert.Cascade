@@ -1,5 +1,5 @@
-# BulkInsert.Cascade
-Simple library for cascade bulk-insert using Entity Framework supporting MS SQL
+# BulkInsert.Cascade EF6&EF core
+Simple library for cascade bulk-insert using Entity Framework 6 and Entity Framework core supporting MS SQL
 
 ## Features
 - Bulk-insert EF entities, info about entities is retrieved from EF
@@ -8,13 +8,17 @@ Simple library for cascade bulk-insert using Entity Framework supporting MS SQL
 - cascade bulk-insert with unlimited depth
 
 ## Known Issues and limitation
-- Obviously just MS SQL is supported
+- Only MS SQL is supported
 - Just single column primary is allowed in case you want to do cascade bulk-insert
 - retrieving primary keys is working just for identity columns and just for C# types int, long and short. If primary Key is not identity then I expect that primary keys will be fill out  and I don’t do any detection of new/existing entities – I don’t think that it makes much sense to extend it
 - in case of identity columns bulk-insert recognize new Entities and do inserts just new ones, but it propagates ids for all entities (new and old ones).
 - cascade bulk-insert expects that for all for all foreign key which are used for cascade bulk-insert 2 properties in entity: navigation property (for storing inserted value) and id property (for propagation of foreign key) – this is IMHO good practice anyway
 - many to many without entity for relation table is  not supported in cascade bulk-insert – simple workaround is to map in-between table to some entity
+## EF6 - Known Issues and limitation
 - if you use 3 level inheritance in entities : C inherit from B, B inherit from A and you try to bulk-insert C then just properties from C and from A are inserted – this is bug in EF.Metadata nuget and I’ll fix with priority. Work around is to put properties in base Entity (in our case entity A). it will be mapped same to database and bulk-insert will work fine.
+## EF core - Known Issues 
+- Owned types are not supported
+- Geodata are not supported
 
 ## Example
 ```c#

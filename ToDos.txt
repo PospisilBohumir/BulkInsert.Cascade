@@ -1,48 +1,11 @@
 TODO:
--- 1) samples
--- 2) intro
-3) EF6/EF core
-4) .NET framework/.NET standard
-5) Better exceptions handling
--- 6) Fork of EntityFramework.Metadata
-7) Create Nugget
-8) Pipeline - automatic build
-9) Nullable Types
-10) check naming + methods names etc.
-11) figure out why DbGeography is not posible to bulk insert
-        private static PropertyDescription ToDescription(IPropertyMap map) => new PropertyDescription
-        {
-            PropertyName = map.PropertyName,
-            Type = map.Type == typeof(DbGeography) ? typeof(SqlGeography) : map.Type,
-            DataTransform = map.Type == typeof(DbGeography) ? o => SqlGeography.Parse(((DbGeography)o).AsText()) : ((Func<object, object>)(o => o)),
-            IsIdentity = map.IsIdentity,
-            ColumnName = map.ColumnName,
-            IsDiscriminator = map.IsDiscriminator,
-        };
---12) created main project for both net standard and .net framework 4.6.1
-13) Tests for Inheritence
-14) ?Tests for for multiple referencies ?
-15) Tests are not thread safe - if all of them are ran then error appears
-16) Create better cascade abstraction
-    public interface ICascade<in T>
-    {
-        CascadeType Type { get; set; }
-
-    }
-
-    /// <summary>
-    ///     Type of cascade propagation
-    /// </summary>
-    public enum CascadeType
-    {
-        /// <summary>
-        ///     Foreign key propagation from parent entity to descendent entity
-        /// </summary>
-        ForwardsCascade,
-
-        /// <summary>
-        ///     Foreign key propagation from descendent to parent entity
-        /// </summary>
-        BackWards
-    }
-
+Both
+	1) improve tests - better coverage
+	2) Pipeline - automatic build
+	!3) Nullable Types
+EF6
+	1) Tests are not thread safe - if all of them are ran then error appears
+EF core
+	1) Better exceptions handling
+	2) GPS
+	3) owned types
