@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8</LangVersion>
     <Authors>Bohumir Pospisil</Authors>
     <PackageTags>MSSQL, bulk-insert, bulkinsert, cascade bulkinsert, Entity Framework core</PackageTags>
@@ -12,7 +12,7 @@
       - propagation id to foreign key columns
       - cascade bulk-insert with unlimited depth</Description>
     <PackageId>BulkInsert.Cascade.EfCore</PackageId>
-    <Version>1.0.0-Preview</Version>
+    <Version>1.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/PospisilBohumir/BulkInsert.Cascade</RepositoryUrl>

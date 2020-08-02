@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -72,7 +71,7 @@ namespace BulkInsert.Cascade.EfCore
 
         public async Task<T> RunScalar<T>(string sql)
         {
-            await using (var command = _context.Database.GetDbConnection().CreateCommand())
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = sql;
                 command.Transaction = GeTransaction();
