@@ -8,7 +8,7 @@ namespace BulkInsert.Cascade.Tests.EfCore
     public class ComplexTypeTests : TestBase
     {
         [Fact]
-        public async Task SimpleBulkInsertPkLongTest()
+        public async Task SimpleComplexTypeTest()
         {
             await DefaultTest(new ComplexTypeTestEntity
             {
@@ -17,5 +17,23 @@ namespace BulkInsert.Cascade.Tests.EfCore
             });
         }
 
+        [Fact]
+        public async Task ComplexInComplexTypeTest()
+        {
+            await DefaultTest(new ComplexTypeTestEntity2
+            {
+                ComplexTypeEntity =
+                {
+                    Field1 = Guid.NewGuid().ToString(), 
+                    Field2 = 11,
+                    ComplexTypeEntity =
+                    {
+                        Field1 = Guid.NewGuid().ToString(),
+                        Field2 = 666,
+                    }
+                },
+                SomeField = Guid.NewGuid().ToString(),
+            });
+        }
     }
 }

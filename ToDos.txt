@@ -3,9 +3,8 @@ Both
 	1) improve tests - better coverage
 	2) Pipeline - automatic build
 	!3) Nullable Types
-EF6
-	1) Tests are not thread safe - if all of them are ran then error appears
+	4) Tests are not thread safe - if all of them are ran then error appears
+
 EF core
 	1) Better exceptions handling
 	2) GPS
-	3) owned types

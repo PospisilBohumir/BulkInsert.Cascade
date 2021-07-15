@@ -14,7 +14,7 @@ namespace BulkInsert.Cascade.Tests.EfCore.TestContext
     {
         public long Id { get; set; }
 
-        public ComplexTypeEntity ComplexTypeEntity { get; set; } = new ComplexTypeEntity();
+        public virtual ComplexTypeEntity ComplexTypeEntity { get; set; } = new ComplexTypeEntity();
 
         public string SomeField { get; set; }
     }

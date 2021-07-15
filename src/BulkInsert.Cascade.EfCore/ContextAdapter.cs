@@ -50,22 +50,37 @@ namespace BulkInsert.Cascade.EfCore
 
         public string GetTableName<T>() => _context.Model.FindEntityType(typeof(T)).GetTableName();
 
-        public IEnumerable<PropertyDescription> GetProperties<T>() => _context.Model.FindEntityType(typeof(T)).GetProperties()
-            .Select(GetPropDescription);
+        public IEnumerable<PropertyDescription> GetProperties<T>() 
+            => GetProperties(_context.Model.FindEntityType(typeof(T)),string.Empty,o=> true);
+        
+        private IEnumerable<PropertyDescription> GetProperties(IEntityType entityType,string prefix,Func<IProperty,bool> filter) =>
+            entityType.GetProperties()
+                .Where(filter)
+                .Select(o => GetPropDescription(o,prefix))
+                .Concat(GetOwnTypes(entityType, prefix));
 
-        private static PropertyDescription GetPropDescription(IProperty o)
-        {
-            return new PropertyDescription
+        private IEnumerable<PropertyDescription> GetOwnTypes(IEntityType entityType,string prefix) =>
+            entityType.GetNavigations().Select(a => new
+                {
+                    TargetType = a.GetTargetType(),
+                    a.Name,
+                }).Where(o => o.TargetType.IsOwned())
+                .SelectMany(o => GetProperties(o.TargetType, $"{prefix}{o.Name}.",
+                    p => !p.IsPrimaryKey()));
+
+        static PropertyDescription GetPropDescription(IProperty o) => GetPropDescription(o, "");
+
+        private static PropertyDescription GetPropDescription(IProperty o,string prefix) =>
+            new PropertyDescription
             {
                 ColumnName = o.GetColumnName(),
                 IsDiscriminator = o.Name == o.DeclaringEntityType?.GetDiscriminatorProperty()?.Name,
                 Type = o.ClrType,
-                PropertyName = o.Name,
+                PropertyName = $"{prefix}{o.Name}",
                 IsIdentity = o.GetValueGenerationStrategy() == SqlServerValueGenerationStrategy.IdentityColumn,
                 SqlType = o.ClrType,
                 ValueTransform = x => x,
             };
-        }
 
         public SqlTransaction GeTransaction() => (SqlTransaction) _transaction.GetDbTransaction();
 

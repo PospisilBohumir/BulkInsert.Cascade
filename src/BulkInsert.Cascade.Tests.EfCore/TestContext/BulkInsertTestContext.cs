@@ -20,6 +20,8 @@ namespace BulkInsert.Cascade.Tests.EfCore.TestContext
         public DbSet<ReverseParentEntity> ReverseParentEntities { get; set; }
         public DbSet<AllColumnTypesEntity> AllColumnTypesEntities { get; set; }
         public DbSet<ComplexTypeTestEntity> ComplexTypeTestEntities { get; set; }
+
+        public DbSet<ComplexTypeTestEntity2> ComplexTypeTestEntities2 { get; set; }
         public DbSet<ReverseLevel1Entity> ReverseLevel1Entities { get; set; }
         public DbSet<ForwardLevel1Entity> ForwardLevel3Entities { get; set; }
         public DbSet<InheritanceBaseEntity> InheritanceBaseEntities { get; set; }
