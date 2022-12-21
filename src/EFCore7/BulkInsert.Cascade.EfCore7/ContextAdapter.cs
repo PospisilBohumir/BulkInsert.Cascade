@@ -50,16 +50,19 @@ namespace BulkInsert.Cascade.EfCore7
 
         public string GetTableName<T>() => _context.Model.FindEntityType(typeof(T)).GetTableName();
 
-        public IEnumerable<PropertyDescription> GetProperties<T>() 
-            => GetProperties(_context.Model.FindEntityType(typeof(T)),string.Empty,o=> true);
-        
-        private IEnumerable<PropertyDescription> GetProperties(IEntityType entityType,string prefix,Func<IProperty,bool> filter) =>
-            entityType.GetProperties()
-                .Where(filter)
-                .Select(o => GetPropDescription(o,prefix))
-                .Concat(GetOwnTypes(entityType, prefix));
+        public IEnumerable<PropertyDescription> GetProperties<T>()
+            => GetProperties(_context.Model.FindEntityType(typeof(T)), string.Empty, o => true);
 
-        private IEnumerable<PropertyDescription> GetOwnTypes(IEntityType entityType,string prefix) =>
+        private IEnumerable<PropertyDescription> GetProperties(IEntityType entityType, string prefix, Func<IProperty, bool> filter)
+        {
+            StoreObjectIdentifier tableIdentifier = StoreObjectIdentifier.Table(entityType.GetTableName());
+            return entityType.GetProperties()
+                .Where(filter)
+                .Select(o => GetPropDescription(o, prefix, tableIdentifier))
+                .Concat(GetOwnTypes(entityType, prefix));
+        }
+
+        private IEnumerable<PropertyDescription> GetOwnTypes(IEntityType entityType, string prefix) =>
             entityType.GetNavigations().Select(a => new
                 {
                     TargetType = a.TargetEntityType,
@@ -68,13 +71,14 @@ namespace BulkInsert.Cascade.EfCore7
                 .SelectMany(o => GetProperties(o.TargetType, $"{prefix}{o.Name}.",
                     p => !p.IsPrimaryKey()));
 
-        static PropertyDescription GetPropDescription(IProperty o) => GetPropDescription(o, "");
+        private static PropertyDescription GetPropDescription(IProperty o) 
+            => GetPropDescription(o, "", default);
 
-        private static PropertyDescription GetPropDescription(IProperty o,string prefix) =>
-            new PropertyDescription
+        private static PropertyDescription GetPropDescription(IProperty o, string prefix, StoreObjectIdentifier tableIdentifier) =>
+            new()
             {
-                ColumnName = o.GetColumnName(),
-                IsDiscriminator = o.Name == o.DeclaringEntityType?.GetDiscriminatorPropertyName(),
+                ColumnName = o.GetColumnName(tableIdentifier),
+                IsDiscriminator = o.Name == o.DeclaringEntityType.GetDiscriminatorPropertyName(),
                 Type = o.ClrType,
                 PropertyName = $"{prefix}{o.Name}",
                 IsIdentity = o.GetValueGenerationStrategy() == SqlServerValueGenerationStrategy.IdentityColumn,
@@ -82,7 +86,7 @@ namespace BulkInsert.Cascade.EfCore7
                 ValueTransform = x => x,
             };
 
-        public SqlTransaction GeTransaction() => (SqlTransaction) _transaction.GetDbTransaction();
+        public SqlTransaction GeTransaction() => (SqlTransaction)_transaction.GetDbTransaction();
 
         public async Task<T> RunScalar<T>(string sql)
         {
@@ -91,7 +95,7 @@ namespace BulkInsert.Cascade.EfCore7
                 command.CommandText = sql;
                 command.Transaction = GeTransaction();
                 await _context.Database.OpenConnectionAsync();
-                return (T) await command.ExecuteScalarAsync();
+                return (T)await command.ExecuteScalarAsync();
             }
         }
 
