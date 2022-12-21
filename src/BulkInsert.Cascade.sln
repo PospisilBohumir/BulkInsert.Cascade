@@ -1,25 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30128.74
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Tests.EF6", "BulkInsert.Cascade.Tests.Ef6\BulkInsert.Cascade.Tests.EF6.csproj", "{F05ADE34-B8C9-4233-860A-1F6AF35FEBD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Tests.EF6", "Ef6\BulkInsert.Cascade.Tests.Ef6\BulkInsert.Cascade.Tests.EF6.csproj", "{F05ADE34-B8C9-4233-860A-1F6AF35FEBD3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples.EF6", "BulkInsert.Cascade.Samples.Ef6\BulkInsert.Cascade.Samples.EF6.csproj", "{C1557237-A9B0-4579-9A62-0EF429AB3085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples.EF6", "Ef6\BulkInsert.Cascade.Samples.Ef6\BulkInsert.Cascade.Samples.EF6.csproj", "{C1557237-A9B0-4579-9A62-0EF429AB3085}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Shared", "BulkInsert.Cascade.Shared\BulkInsert.Cascade.Shared.csproj", "{1D58AB85-2534-480A-8592-F5AA88AF5DF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Ef6", "BulkInsert.Cascade.Ef6\BulkInsert.Cascade.Ef6.csproj", "{99B46CB7-8BFD-4F10-AE27-86800FA936E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Ef6", "Ef6\BulkInsert.Cascade.Ef6\BulkInsert.Cascade.Ef6.csproj", "{99B46CB7-8BFD-4F10-AE27-86800FA936E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.EfCore", "BulkInsert.Cascade.EfCore\BulkInsert.Cascade.EfCore.csproj", "{7DB5C0FA-279B-44B8-B25E-8889BC8CC4E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.EfCore", "EfCore\BulkInsert.Cascade.EfCore\BulkInsert.Cascade.EfCore.csproj", "{7DB5C0FA-279B-44B8-B25E-8889BC8CC4E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Tests.EfCore", "BulkInsert.Cascade.Tests.EfCore\BulkInsert.Cascade.Tests.EfCore.csproj", "{EB0E599F-EBD5-4438-95BB-4029A9A39482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Tests.EfCore", "EfCore\BulkInsert.Cascade.Tests.EfCore\BulkInsert.Cascade.Tests.EfCore.csproj", "{EB0E599F-EBD5-4438-95BB-4029A9A39482}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EF6", "EF6", "{FD8FA594-2E96-41EE-A1D3-BD566DB5C481}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EfCore", "EfCore", "{9D11FD80-D33D-4EA6-A0D7-2CD524CF0AB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples.EfCore", "BulkInsert.Cascade.Samples.EfCore\BulkInsert.Cascade.Samples.EfCore.csproj", "{9760D74A-FCEB-4E49-8B5A-7B32F981E04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples.EfCore", "EfCore\BulkInsert.Cascade.Samples.EfCore\BulkInsert.Cascade.Samples.EfCore.csproj", "{9760D74A-FCEB-4E49-8B5A-7B32F981E04A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFCore7", "EFCore7", "{492E940B-A08F-40FE-A059-EE5742A80800}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.EfCore7", "EFCore7\BulkInsert.Cascade.EfCore7\BulkInsert.Cascade.EfCore7.csproj", "{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Samples.EfCore7", "EFCore7\BulkInsert.Cascade.Samples.EfCore7\BulkInsert.Cascade.Samples.EfCore7.csproj", "{DF836B47-CE7B-479B-AE64-EC136BD58308}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkInsert.Cascade.Tests.EfCore7", "EFCore7\BulkInsert.Cascade.Tests.EfCore7\BulkInsert.Cascade.Tests.EfCore7.csproj", "{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +63,18 @@ Global
 		{9760D74A-FCEB-4E49-8B5A-7B32F981E04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9760D74A-FCEB-4E49-8B5A-7B32F981E04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9760D74A-FCEB-4E49-8B5A-7B32F981E04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF836B47-CE7B-479B-AE64-EC136BD58308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF836B47-CE7B-479B-AE64-EC136BD58308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF836B47-CE7B-479B-AE64-EC136BD58308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF836B47-CE7B-479B-AE64-EC136BD58308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +86,9 @@ Global
 		{7DB5C0FA-279B-44B8-B25E-8889BC8CC4E7} = {9D11FD80-D33D-4EA6-A0D7-2CD524CF0AB0}
 		{EB0E599F-EBD5-4438-95BB-4029A9A39482} = {9D11FD80-D33D-4EA6-A0D7-2CD524CF0AB0}
 		{9760D74A-FCEB-4E49-8B5A-7B32F981E04A} = {9D11FD80-D33D-4EA6-A0D7-2CD524CF0AB0}
+		{9FF2BDC8-0C70-4937-AD31-3DD5E8FF6F3E} = {492E940B-A08F-40FE-A059-EE5742A80800}
+		{DF836B47-CE7B-479B-AE64-EC136BD58308} = {492E940B-A08F-40FE-A059-EE5742A80800}
+		{F3424DE7-FBC4-4C18-8DE6-6924B94A32FE} = {492E940B-A08F-40FE-A059-EE5742A80800}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B1A16FB-EF2F-4566-85E8-F25548E3F2CD}
