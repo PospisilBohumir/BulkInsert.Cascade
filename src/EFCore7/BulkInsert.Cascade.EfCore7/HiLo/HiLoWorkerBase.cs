@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.EfCore.Helpers;
+using BulkInsert.Cascade.EfCore7.Helpers;
 
-namespace BulkInsert.Cascade.EfCore.HiLo
+namespace BulkInsert.Cascade.EfCore7.HiLo
 {
     internal abstract class HiLoWorkerBase<TValue> : IHiLoWorker
     {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BulkInsert.Cascade.Tests.EfCore.TestContext
+namespace BulkInsert.Cascade.Tests.EfCore7.TestContext
 {
     public class MultipleKeyEntity
     {

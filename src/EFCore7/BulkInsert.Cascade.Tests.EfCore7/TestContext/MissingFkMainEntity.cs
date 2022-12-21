@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BulkInsert.Cascade.Tests.EfCore.TestContext
+namespace BulkInsert.Cascade.Tests.EfCore7.TestContext
 {
     public class MissingFkMainEntity
     {

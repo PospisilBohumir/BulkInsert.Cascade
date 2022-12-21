@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace BulkInsert.Cascade.EfCore.HiLo
+namespace BulkInsert.Cascade.EfCore7.HiLo
 {
     internal interface IHiLoWorker
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BulkInsert.Cascade.EfCore
+namespace BulkInsert.Cascade.EfCore7
 {
     public interface ICascade<in T>
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BulkInsert.Cascade.EfCore.Helpers
+namespace BulkInsert.Cascade.EfCore7.Helpers
 {
     internal static class TypeExtender
     {

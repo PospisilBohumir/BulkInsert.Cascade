@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.EfCore.Helpers;
+using BulkInsert.Cascade.EfCore7.Helpers;
 
-namespace BulkInsert.Cascade.EfCore
+namespace BulkInsert.Cascade.EfCore7
 {
     public class CascadeReverse<TSource, TDestination> : ICascade<TSource> where TDestination : class
     {

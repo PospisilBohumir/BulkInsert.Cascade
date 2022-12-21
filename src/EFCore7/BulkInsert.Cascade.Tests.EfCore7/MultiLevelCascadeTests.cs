@@ -1,12 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.EfCore;
-using BulkInsert.Cascade.Tests.EfCore.TestContext;
+using BulkInsert.Cascade.EfCore7;
+using BulkInsert.Cascade.Tests.EfCore7.TestContext;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace BulkInsert.Cascade.Tests.EfCore
+namespace BulkInsert.Cascade.Tests.EfCore7
 {
     public class MultiLevelCascadeTests : TestBase
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace BulkInsert.Cascade.EfCore.Helpers
+namespace BulkInsert.Cascade.EfCore7.Helpers
 {
     /// <summary>
     ///     Helper used for parsing expressions

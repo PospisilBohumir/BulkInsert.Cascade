@@ -1,4 +1,4 @@
-﻿namespace BulkInsert.Cascade.EfCore.HiLo
+﻿namespace BulkInsert.Cascade.EfCore7.HiLo
 {
     internal class HiLoWorkerLong : HiLoWorkerBase<long>
     {

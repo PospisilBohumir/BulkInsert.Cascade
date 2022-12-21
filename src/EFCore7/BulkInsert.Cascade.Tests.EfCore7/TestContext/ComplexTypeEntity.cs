@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace BulkInsert.Cascade.Tests.EfCore.TestContext
+namespace BulkInsert.Cascade.Tests.EfCore7.TestContext
 {
     [Owned]
     public class ComplexTypeEntity

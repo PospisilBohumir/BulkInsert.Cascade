@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BulkInsert.Cascade.EfCore
+namespace BulkInsert.Cascade.EfCore7
 {
     public class ContextAdapter : IContextAdapter
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.EfCore.Helpers;
-using BulkInsert.Cascade.EfCore.HiLo;
+using BulkInsert.Cascade.EfCore7.Helpers;
+using BulkInsert.Cascade.EfCore7.HiLo;
 using Microsoft.Data.SqlClient;
 
-namespace BulkInsert.Cascade.EfCore
+namespace BulkInsert.Cascade.EfCore7
 {
     public static class ContextAdapterExtender
     {

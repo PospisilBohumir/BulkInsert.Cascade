@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.Tests.EfCore.TestContext;
+using BulkInsert.Cascade.Tests.EfCore7.TestContext;
 using Xunit;
 
-namespace BulkInsert.Cascade.Tests.EfCore
+namespace BulkInsert.Cascade.Tests.EfCore7
 {
     public class InheritanceTests : TestBase
     {

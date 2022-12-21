@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using BulkInsert.Cascade.EfCore;
+using BulkInsert.Cascade.EfCore7;
 using Microsoft.EntityFrameworkCore;
 
-namespace BulkInsert.Cascade.Samples.EfCore
+namespace BulkInsert.Cascade.Samples.EfCore7
 {
     static class Program
     {

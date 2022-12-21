@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace BulkInsert.Cascade.EfCore
+namespace BulkInsert.Cascade.EfCore7
 {
     /// <summary>
     ///     Extender for cascade bulk-insert
