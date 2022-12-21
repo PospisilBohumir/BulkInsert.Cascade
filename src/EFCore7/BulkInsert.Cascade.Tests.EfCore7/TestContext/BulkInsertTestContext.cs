@@ -6,7 +6,7 @@ namespace BulkInsert.Cascade.Tests.EfCore.TestContext
     {
         public BulkInsertTestContext()
             : base(new DbContextOptionsBuilder<BulkInsertTestContext>()
-                .UseSqlServer("Data Source=.;Initial Catalog=BulkInsertTest.Core;Integrated Security=True;MultipleActiveResultSets=true").Options)
+                .UseSqlServer("Data Source=.;Initial Catalog=BulkInsertTest.Core;Integrated Security=True;MultipleActiveResultSets=true;Encrypt=False").Options)
         {
         }
 

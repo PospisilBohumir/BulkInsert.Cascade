@@ -62,7 +62,7 @@ namespace BulkInsert.Cascade.EfCore
         private IEnumerable<PropertyDescription> GetOwnTypes(IEntityType entityType,string prefix) =>
             entityType.GetNavigations().Select(a => new
                 {
-                    TargetType = a.GetTargetType(),
+                    TargetType = a.TargetEntityType,
                     a.Name,
                 }).Where(o => o.TargetType.IsOwned())
                 .SelectMany(o => GetProperties(o.TargetType, $"{prefix}{o.Name}.",
@@ -74,7 +74,7 @@ namespace BulkInsert.Cascade.EfCore
             new PropertyDescription
             {
                 ColumnName = o.GetColumnName(),
-                IsDiscriminator = o.Name == o.DeclaringEntityType?.GetDiscriminatorProperty()?.Name,
+                IsDiscriminator = o.Name == o.DeclaringEntityType?.GetDiscriminatorPropertyName(),
                 Type = o.ClrType,
                 PropertyName = $"{prefix}{o.Name}",
                 IsIdentity = o.GetValueGenerationStrategy() == SqlServerValueGenerationStrategy.IdentityColumn,

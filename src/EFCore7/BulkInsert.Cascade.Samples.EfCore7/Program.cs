@@ -38,7 +38,7 @@ namespace BulkInsert.Cascade.Samples.EfCore
     public class SchoolContext : DbContext
     {
         public SchoolContext() : base(new DbContextOptionsBuilder<SchoolContext>()
-            .UseSqlServer("Data Source=.;Initial Catalog=School;Integrated Security=True;MultipleActiveResultSets=true").Options)
+            .UseSqlServer("Data Source=.;Initial Catalog=School;Integrated Security=True;MultipleActiveResultSets=true;Encrypt=False").Options)
 
         {
         }
