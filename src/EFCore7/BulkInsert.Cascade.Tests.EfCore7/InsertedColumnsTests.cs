@@ -3,37 +3,45 @@ using System.Threading.Tasks;
 using BulkInsert.Cascade.Tests.EfCore7.TestContext;
 using Xunit;
 
-namespace BulkInsert.Cascade.Tests.EfCore7
-{
-    public class InsertedColumnsTests : TestBase
-    {
-        [Fact]
-        public async Task AllDefaultsTest()
-        {
-            await DefaultTest(new AllColumnTypesEntity());
-        }
+namespace BulkInsert.Cascade.Tests.EfCore7;
 
-        [Fact]
-        public async Task AllFilledOutTest()
+[Collection("Db Context collection")]
+public class InsertedColumnsTests
+{
+    private readonly ContextFixture _contextFixture;
+
+    public InsertedColumnsTests(ContextFixture contextFixture)
+    {
+        _contextFixture = contextFixture;
+    }
+    
+    [Fact]
+    public async Task AllDefaultsTest()
+    {
+        await _contextFixture.DefaultTest(new AllColumnTypesEntity());
+    }
+
+    [Fact]
+    public async Task AllFilledOutTest()
+    {
+        await _contextFixture.DefaultTest(new AllColumnTypesEntity
         {
-            await DefaultTest(new AllColumnTypesEntity
-            {
-                BoolNullableValue = true,
-                BoolValue = true,
-                ByteArrayValue = Guid.NewGuid().ToByteArray(),
-                DateTimeNullableValue = DateTime.Today,
-                DateTimeValue = DateTime.Today,
-                DecimalNullableValue = 3.14m,
-                DecimalValue = 3.14m,
-                EnumNullableValue = TestEnum.Item2,
-                EnumValue = TestEnum.Item1,
-                IntNullableValue = 42,
-                IntValue = 666,
-                LongNullableValue = 65536,
-                LongValue = 151,
-                StringValue = Guid.NewGuid().ToString(),
-            });
-        }
+            BoolNullableValue = true,
+            BoolValue = true,
+            ByteArrayValue = Guid.NewGuid().ToByteArray(),
+            DateTimeNullableValue = DateTime.Today,
+            DateTimeValue = DateTime.Today,
+            DecimalNullableValue = 3.14m,
+            DecimalValue = 3.14m,
+            EnumNullableValue = TestEnum.Item2,
+            EnumValue = TestEnum.Item1,
+            IntNullableValue = 42,
+            IntValue = 666,
+            LongNullableValue = 65536,
+            LongValue = 151,
+            StringValue = Guid.NewGuid().ToString(),
+        });
+    }
 
 /*        [Fact]
         public async Task DbGeographyTest()
@@ -48,5 +56,4 @@ namespace BulkInsert.Cascade.Tests.EfCore7
                 .SingleAsync(o => o.Id==e.Id);
             Assert.Equal(e.Geography.AsText(), stored.Geography.AsText());
         }*/
-    }
 }

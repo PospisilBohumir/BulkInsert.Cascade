@@ -1,13 +1,11 @@
-namespace BulkInsert.Cascade.Tests.EfCore7.TestContext
+namespace BulkInsert.Cascade.Tests.EfCore7.TestContext;
+
+public interface IName
 {
-    public interface IName
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
+}
 
-    public interface IId
-    {
-        public long Id { get; set; }
-    }
-
+public interface IId
+{
+    public long Id { get; set; }
 }

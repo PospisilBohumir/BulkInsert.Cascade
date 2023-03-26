@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 
-namespace BulkInsert.Cascade.Tests.EfCore7.TestContext
+namespace BulkInsert.Cascade.Tests.EfCore7.TestContext;
+
+public class ParentEntity
 {
-    public class ParentEntity
-    {
-        public long Id { get; set; }
-        public virtual ICollection<PkLongEntity> PkIdentityLong { get; set; }
-        public virtual ICollection<PkIntEntity> PkIdentityInt { get; set; }
-        public virtual ICollection<PkShortEntity> PkIdentityShort { get; set; }
-        public virtual ICollection<PkGuidEntity> PkIdentityGuid { get; set; }
-    }
+    public long Id { get; set; }
+    public virtual ICollection<PkLongEntity> PkIdentityLong { get; set; }
+    public virtual ICollection<PkIntEntity> PkIdentityInt { get; set; }
+    public virtual ICollection<PkShortEntity> PkIdentityShort { get; set; }
+    public virtual ICollection<PkGuidEntity> PkIdentityGuid { get; set; }
 }
